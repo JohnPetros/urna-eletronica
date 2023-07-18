@@ -1,3 +1,4 @@
+'use client'
 interface InputProps {
   id: string
   type: string

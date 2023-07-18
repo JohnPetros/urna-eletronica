@@ -1,7 +1,9 @@
+import { Form } from './components/Form'
+
 export default function Home() {
   return (
-    <main>
-      <h1>John Petros</h1>
+    <main className="flex h-[calc(100%-80px)] items-center justify-center">
+      <Form />
     </main>
   )
 }
