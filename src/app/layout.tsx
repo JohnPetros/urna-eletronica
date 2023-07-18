@@ -1,4 +1,4 @@
-import './globals.css'
+import './styles/global.css'
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 
@@ -16,7 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={roboto.className}>{children}</body>
+      <body className={`${roboto.className} w-screen h-screen`}>
+        {children}
+      </body>
     </html>
   )
 }
