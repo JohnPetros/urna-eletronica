@@ -81,26 +81,23 @@ export function ModalComponent({ title, text, type }: ModalProps, ref: any) {
     <Dialog.Root open={isOpen}>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black/70 fixed inset-0" />
-        <Dialog.Content
-          asChild
-          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-        >
+        <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[450px]">
           <AnimatePresence>
             <motion.div
               variants={variants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              className=" bg-white py-8 px-12 rounded shadow-sm flex flex-col gap-6 items-center max-w-[90%]"
+              className=" bg-white p-8 rounded shadow-sm flex flex-col gap-6 items-center w-full"
             >
               <Lottie
                 autoplay
                 animationData={animations[type]}
                 loop={false}
-                style={{ width: 100, height: 100 }}
+                style={{ width: 80, height: 80 }}
               />
               <div>
-                <strong className="block text-2xl text-center text-zinc-900">
+                <strong className="block text-xl text-center text-zinc-900">
                   {title}
                 </strong>
                 <small className="block text-center text-lg mt-4">{text}</small>
