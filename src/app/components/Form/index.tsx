@@ -26,7 +26,7 @@ export function Form() {
     } else {
       openModal({
         type: 'success',
-        title: `Você tem ${age} anos e está ápto a votar`,
+        title: `Você tem ${age} anos e está apto a votar`,
         text: 'Clique em ok',
       })
     }

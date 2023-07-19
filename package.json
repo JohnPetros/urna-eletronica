@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@lottiefiles/react-lottie-player": "^3.5.3",
     "@radix-ui/react-dialog": "^1.0.4",
     "@types/node": "20.4.2",
     "@types/react": "18.2.15",
@@ -16,10 +17,13 @@
     "autoprefixer": "10.4.14",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.10",
+    "framer-motion": "^10.12.22",
+    "lottie-react": "^2.4.0",
     "next": "13.4.10",
     "postcss": "8.4.26",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-lottie-player": "^1.5.4",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6"
   }
