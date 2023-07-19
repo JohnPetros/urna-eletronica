@@ -9,13 +9,15 @@ import { Input } from './Input'
 const formSchema = z.object({
   name: z
     .string()
-    .nonempty('Seu nome não pode ser vazio!')
+    .nonempty('Seu nome não pode estar vazio!')
     .min(3, 'Por favor, informe um nome válido!'),
   birthdate: z.coerce
-    .date()
-    .min(new Date('1900-01-01'), {
-      message: 'Data inválida',
+    .date({
+      errorMap: () => {
+        return { message: 'Data inválida!' }
+      },
     })
+    .min(new Date('1900-01-01'), 'Data inválida!')
     .max(new Date()),
 })
 
@@ -42,7 +44,7 @@ export function Form() {
       })
     } else if (age < 18 || age >= 70) {
       openModal({
-        type: 'waning',
+        type: 'warning',
         title: `Você tem ${age} anos e seu voto é opcional.`,
         text: 'Clique em confirmar se quiser realmente votar',
       })
