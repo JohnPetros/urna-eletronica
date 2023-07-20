@@ -5,6 +5,6 @@ describe('Header component', () => {
   it('should render correctly', () => {
     render(<Header />)
 
-    screen.getByText("Eleições 2022")
+    screen.getByText('Eleições 2022')
   })
 })
