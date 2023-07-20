@@ -1,9 +1,6 @@
 'use client'
+import { User } from '@/types/user'
 import { useState, createContext, useContext, ReactNode } from 'react'
-
-type User = {
-  name: string
-}
 
 interface UserContextValue {
   user: User | null
@@ -24,7 +21,7 @@ export function UserProvider({ children }: UserProviderProps) {
   function registerUser(user: User) {
     setUser(user)
     const userData = JSON.stringify(user)
-    localStorage.setItem('urna-eletronica@', userData)
+    localStorage.setItem('urna-eletronica@user', userData)
   }
 
   return (
