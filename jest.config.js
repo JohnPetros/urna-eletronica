@@ -1,19 +1,12 @@
-module.exports = {
-  testPathIgnorePatterns: ["/node_modules/", "/.next/"],
-  setupFilesAfterEnv: [
-    "<rootDir>/src/tests/setupTests.ts",
-  ],
-  transform: {
-    "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest"
-  },
-  moduleNameMapper: {
-    "^@/(.*)$": '<rootDir>/src/$1'
+const nextJest = require('next/jest')
 
-  },
-  collectCoverage: true,
-  collectCoverageFrom: [
-    "src/**/*.tsx",
-  ],
-  coverageReporters: ["json", "lcov"],
-  testEnvironment: 'jsdom',
-};
+const createJestConfig = nextJest({
+  dir: './',
+})
+
+const customJestConfig = {
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js', 'jest-canvas-mock'],
+  testEnvironment: 'jest-environment-jsdom',
+}
+
+module.exports = createJestConfig(customJestConfig)
