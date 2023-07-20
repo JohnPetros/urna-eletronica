@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import { Input } from './Input'
+import { useUser } from '@/hooks/useUser'
 
 const formSchema = z.object({
   name: z
@@ -24,6 +25,7 @@ const formSchema = z.object({
 export type FormFields = z.infer<typeof formSchema>
 
 export function Form() {
+  const { registerUser } = useUser()
   const { openModal } = useModal()
   const {
     register,
@@ -42,18 +44,21 @@ export function Form() {
         } anos.`,
         text: 'Até a próxima 👋🏻',
       })
+      return false
     } else if (age < 18 || age >= 70) {
       openModal({
         type: 'warning',
         title: `Você tem ${age} anos e seu voto é opcional.`,
         text: 'Clique em confirmar se quiser realmente votar',
       })
+      return false
     } else {
       openModal({
         type: 'success',
         title: `Você tem ${age} anos e está apto a votar.`,
         text: 'Clique em ok',
       })
+      return true
     }
   }
 
@@ -64,10 +69,12 @@ export function Form() {
   }
 
   function handleUserData(data: FormFields) {
-    console.log(data)
-
     const age = getAge(data.birthdate)
-    handleAge(age)
+    const isValidUser = handleAge(age)
+
+    if (isValidUser) {
+      registerUser({ name: data.name })
+    }
   }
 
   return (
@@ -98,6 +105,7 @@ export function Form() {
       </fieldset>
       <footer className="px-6 pb-6">
         <button
+          aria-label="submit"
           className="bg-blue-900 text-zinc-100 text-lg w-full py-2 hover:bg-blue-800 transition-colors rounded"
           type="submit"
         >

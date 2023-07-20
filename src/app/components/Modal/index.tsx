@@ -8,6 +8,8 @@ import Error from '../../../../public/animations/error.json'
 import Success from '../../../../public/animations/success.json'
 
 import { AnimatePresence, Variants, motion } from 'framer-motion'
+import { useUser } from '@/hooks/useUser'
+import { useRouter } from 'next/navigation'
 
 const variants: Variants = {
   hidden: {
@@ -57,6 +59,8 @@ export interface ModalComponent {
 
 export function ModalComponent({ title, text, type }: ModalProps, ref: any) {
   const [isOpen, setisOpen] = useState(false)
+  const { hasUser } = useUser()
+  const router = useRouter()
 
   useImperativeHandle(ref, () => {
     return {
@@ -74,6 +78,10 @@ export function ModalComponent({ title, text, type }: ModalProps, ref: any) {
   }
 
   function handleButtonClick() {
+    if (type === 'success' && hasUser) {
+      router.push('/voting')
+    }
+
     setisOpen(false)
   }
 
@@ -81,7 +89,10 @@ export function ModalComponent({ title, text, type }: ModalProps, ref: any) {
     <Dialog.Root open={isOpen}>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black/70 fixed inset-0" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[450px]">
+        <Dialog.Content
+          data-testid={type}
+          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[450px]"
+        >
           <AnimatePresence>
             <motion.div
               variants={variants}
