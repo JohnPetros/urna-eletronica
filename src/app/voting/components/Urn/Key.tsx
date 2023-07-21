@@ -1,4 +1,6 @@
+'use client'
 import { twMerge } from 'tailwind-merge'
+import { motion } from 'framer-motion'
 
 interface KeyProps {
   value: string
@@ -7,13 +9,14 @@ interface KeyProps {
 
 export function Key({ value, className }: KeyProps) {
   return (
-    <button
+    <motion.button
+      whileTap={{ scale: 0.95 }}
       className={twMerge(
-        'bg-zinc-800 text-zinc-100 rounded-lg py-2 px-8 border-b-2 border-zinc-300 uppercase',
+        'text-zinc-100 rounded-lg border-b-2 border-zinc-400 uppercase',
         className
       )}
     >
       {value}
-    </button>
+    </motion.button>
   )
 }
