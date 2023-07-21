@@ -8,30 +8,38 @@ export function Keyboard() {
 
   return (
     <div>
-      <header className="bg-zinc-200 flex items-center justify-between p-2">
+      <header className="bg-zinc-200 flex items-center justify-between py-2 px-4">
         <Image
           src="/images/republica-logo.png"
-          width={48}
-          height={48}
+          width={40}
+          height={40}
           alt="Justiça eleitoral"
         />
         <h2 className="uppercase text-lg text-zinc-900 font-bold">
           Justiça eleitoral
         </h2>
       </header>
-      <div className="grid grid-cols-3 gap-3 bg-zinc-600 p-6">
+      <div className="grid grid-cols-3 gap-2 bg-zinc-600 p-6">
         {keys.map((key) => (
           <div key={key} className="grid place-content-center">
-            <Key className="bg-zinc-800" value={String(key)} />
+            <Key className="bg-zinc-800 px-9 py-2" value={String(key)} />
           </div>
         ))}
         <div className="col-span-3 grid place-content-center">
-          <Key className="bg-zinc-800" value="0" />
+          <Key className="bg-zinc-800 px-9 py-2" value="0" />
         </div>
 
-        <Key className="bg-zinc-100" value="Branco" />
-        <Key className="bg-orange-500" value="Corrige" />
-        <Key className="bg-green-400" value="Confirma" />
+        <div className='col-span-3 flex items-center justify-between mt-3'>
+          <Key className="bg-zinc-100 text-zinc-800 px-3 py-2" value="Branco" />
+          <Key
+            className="bg-orange-600 text-zinc-950 px-3 py-2"
+            value="Corrige"
+          />
+          <Key
+            className="bg-green-600 text-sm text-zinc-950 px-3 py-3"
+            value="Confirma"
+          />
+        </div>
       </div>
     </div>
   )
