@@ -1,10 +1,10 @@
 import { ROLES } from '@/constants/roles'
 import { ReactNode, createContext, useContext, useState } from 'react'
 
-type Role = (typeof ROLES)[number]
+type RoleTitle = (typeof ROLES)[number]
 
 interface RoleContextValue {
-  activeRole: Role
+  activeRoleTitle: RoleTitle
   nextRole: () => void
 }
 
@@ -15,16 +15,16 @@ interface RoleProviderProps {
 const RoleContext = createContext({} as RoleContextValue)
 
 export function RoleProvider({ children }: RoleProviderProps) {
-  const [activeRole, setActiveRole] = useState<Role>('DEPUTADO ESTADUAL')
+  const [activeRoleTitle, setActiveRoleTitle] = useState<RoleTitle>('DEPUTADO ESTADUAL')
 
   function nextRole() {
-    const currentIndex = ROLES.findIndex((role) => role === activeRole)
+    const currentIndex = ROLES.findIndex((role) => role === activeRoleTitle)
 
-    setActiveRole(ROLES[currentIndex + 1])
+    setActiveRoleTitle(ROLES[currentIndex + 1])
   }
 
   return (
-    <RoleContext.Provider value={{ activeRole, nextRole }}>
+    <RoleContext.Provider value={{ activeRoleTitle, nextRole }}>
       {children}
     </RoleContext.Provider>
   )

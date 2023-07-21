@@ -1,9 +1,14 @@
-import { Field } from "./Field";
+import { getRoles } from '@/functions'
+import { Field } from './Field'
 
-export function Display() {
+export async function Display() {
+  const roles = await getRoles()
+  
   return (
     <div className="bg-zinc-100 border border-zinc-800 p-6">
-      <strong className="uppercase text-xl block pr-8">Deputado federal</strong>
+      <strong className="uppercase text-xl block w-max pr-6">
+        Deputado federal
+      </strong>
 
       <div className="flex gap-1 mt-4">
         <Field number={8} />
