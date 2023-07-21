@@ -29,7 +29,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "jest.config.js",
-    "jest.setup.js"
+    "jest.setup.js",
+    "src/hooks/useModal/UseModal.test"
   ],
   "exclude": ["node_modules"]
 }

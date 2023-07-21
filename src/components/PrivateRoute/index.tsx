@@ -13,7 +13,6 @@ export function PrivateRoute({ children }: PrivateRouteProps) {
   const router = useRouter()
   const storagedUser = getStoragedUser()
 
-
   useEffect(() => {
     if (!storagedUser) {
       router.push('/')
@@ -21,7 +20,7 @@ export function PrivateRoute({ children }: PrivateRouteProps) {
     }
 
     registerUser(storagedUser)
-  }, [storagedUser])
+  }, [])
 
   return (
     <>

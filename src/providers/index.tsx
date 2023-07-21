@@ -1,11 +1,11 @@
 'use client'
 import { ReactNode } from 'react'
+import { usePathname } from 'next/navigation'
 import { ModalProvider } from '@/hooks/useModal'
 import { UserProvider } from '@/hooks/useUser'
-import { usePathname } from 'next/navigation'
 
-import { PrivateRoute } from '@/components/PrivateRoute'
 import { Header } from '@/app/components/Header'
+import { PrivateRoute } from '@/components/PrivateRoute'
 
 import { checkIsPublicRoute } from '@/functions'
 
@@ -15,10 +15,7 @@ interface ProvidersProps {
 
 export function Providers({ children }: ProvidersProps) {
   const pathname = usePathname()
-
   const isPublicRoute = checkIsPublicRoute(pathname)
-
-  console.log({isPublicRoute})
 
   return (
     <UserProvider>
