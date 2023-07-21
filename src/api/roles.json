@@ -1,0 +1,704 @@
+{
+  "roles": [
+    {
+      "id": 1,
+      "title": "DEPUTADO FEDERAL",
+      "digits": 4,
+      "candidates": [
+        {
+          "number": "9101",
+          "name": "Atletismo",
+          "party": "PEsp",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9101_atletismo.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9102",
+          "name": "Ginástica Artística",
+          "party": "PEsp",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9102_ginastica.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9103",
+          "name": "Boxe",
+          "party": "PEsp",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9103_boxe.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9104",
+          "name": "Halterofilismo",
+          "party": "PEsp",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9104_halterofilismo.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9201",
+          "name": "Sertanejo",
+          "party": "PMus",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9201_sertanejo.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9202",
+          "name": "Reggae",
+          "party": "PMus",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9202_reggae.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9203",
+          "name": "Música Clássica",
+          "party": "PMus",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9203_musica_classica.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9204",
+          "name": "Ópera",
+          "party": "PMus",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9204_opera.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9301",
+          "name": "Artista",
+          "party": "PProf",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9204_opera.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9302",
+          "name": "Operário",
+          "party": "PProf",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9302_operario.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9303",
+          "name": "Astronauta",
+          "party": "PProf",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9303_astronauta.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9304",
+          "name": "Cozinheira",
+          "party": "PProf",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9304_cozinheira.jpg",
+              "caption": "Deputada Federal"
+            }
+          ]
+        },
+        {
+          "number": "9401",
+          "name": "Boi-bumbá",
+          "party": "PFest",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9401_boi_bumba.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9402",
+          "name": "Peão de Boiadeiro",
+          "party": "PFest",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9402_peao_de_boiadeiro.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9403",
+          "name": "Oktoberfest",
+          "party": "PFest",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9403_oktoberfest.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9404",
+          "name": "Semana Farroupilha",
+          "party": "PFest",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9404_semana_farroupilha.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9501",
+          "name": "Lobisomem",
+          "party": "PFolc",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9501_lobisomem.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9502",
+          "name": "Cuca",
+          "party": "PFolc",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9502_cuca.jpg",
+              "caption": "Deputada Federal"
+            }
+          ]
+        },
+        {
+          "number": "9503",
+          "name": "Negrinho do Pastoreio",
+          "party": "PFolc",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9503_negrinho_do_pastoreio.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        },
+        {
+          "number": "9504",
+          "name": "Mapinguari",
+          "party": "PFolc",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/9504_mapinguari.jpg",
+              "caption": "Deputado Federal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "DEPUTADO ESTADUAL",
+      "digits": 5,
+      "candidates": [
+        {
+          "number": "91001",
+          "name": "Basquete",
+          "party": "PEsp",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/91001_basquete.jpg",
+              "caption": "Deputado Estadual"
+            }
+          ]
+        },
+        {
+          "number": "91002",
+          "name": "Hipismo",
+          "party": "PEsp",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/91002_hipismo.jpg",
+              "caption": "Deputado Estadual"
+            }
+          ]
+        },
+        {
+          "number": "91003",
+          "name": "Patinação",
+          "party": "PEsp",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/91003_patinacao.jpg",
+              "caption": "Deputada Estadual"
+            }
+          ]
+        },
+        {
+          "number": "92001",
+          "name": "Frevo",
+          "party": "PMus",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/92001_frevo.jpg",
+              "caption": "Deputado Estadual"
+            }
+          ]
+        },
+        {
+          "number": "92002",
+          "name": "Jazz",
+          "party": "PMus",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/92002_jazz.jpg",
+              "caption": "Deputado Estadual"
+            }
+          ]
+        },
+        {
+          "number": "92003",
+          "name": "Música Eletrônica",
+          "party": "PMus",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/92003_musica_eletronica.jpg",
+              "caption": "Deputada Estadual"
+            }
+          ]
+        },
+        {
+          "number": "93001",
+          "name": "Garçom",
+          "party": "PProf",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/93001_garcom.jpg",
+              "caption": "Deputado Estadual"
+            }
+          ]
+        },
+        {
+          "number": "93002",
+          "name": "Motorista",
+          "party": "PProf",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/93002_motorista.jpg",
+              "caption": "Deputado Estadual"
+            }
+          ]
+        },
+        {
+          "number": "93003",
+          "name": "Bombeira",
+          "party": "PProf",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/93003_bombeira.jpg",
+              "caption": "Deputada Estadual"
+            }
+          ]
+        },
+        {
+          "number": "94001",
+          "name": "Páscoa",
+          "party": "PFest",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/94001_pascoa.jpg",
+              "caption": "Deputada Estadual"
+            }
+          ]
+        },
+        {
+          "number": "94002",
+          "name": "Réveillon",
+          "party": "PFest",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/94002_reveillon.jpg",
+              "caption": "Deputado Estadual"
+            }
+          ]
+        },
+        {
+          "number": "94003",
+          "name": "Festa da Uva",
+          "party": "PFest",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/94003_festa_da_uva.jpg",
+              "caption": "Deputada Estadual"
+            }
+          ]
+        },
+        {
+          "number": "95001",
+          "name": "Iara",
+          "party": "PFolc",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/95001_iara.jpg",
+              "caption": "Deputada Estadual"
+            }
+          ]
+        },
+        {
+          "number": "95002",
+          "name": "Barba-Ruiva",
+          "party": "PFolc",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/95002_barba_ruiva.jpg",
+              "caption": "Deputado Estadual"
+            }
+          ]
+        },
+        {
+          "number": "95003",
+          "name": "Bicho-Papão",
+          "party": "PFolc",
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/95003_bicho_papao.jpg",
+              "caption": "Deputado Estadual"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "SENADOR",
+      "digits": 3,
+      "candidates": [
+        {
+          "number": "911",
+          "name": "Natação",
+          "party": "PEsp",
+          "alternates": ["Esgrima", "Rúgbi"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/911_natacao.jpg",
+              "caption": "Senador"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/911_esgrima.jpg",
+              "caption": "1º Suplente",
+              "small": true
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/911_rugbi.jpg",
+              "caption": "2° Suplente",
+              "small": true
+            }
+          ]
+        },
+        {
+          "number": "921",
+          "name": "Samba",
+          "party": "PMus",
+          "alternates": ["Tango", "Música Disco"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/921_samba.jpg",
+              "caption": "Senador"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/921_tango.jpg",
+              "caption": "1º Suplente",
+              "small": true
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/921_musica_disco.jpg",
+              "caption": "2° Suplente",
+              "small": true
+            }
+          ]
+        },
+        {
+          "number": "931",
+          "name": "Enfermeira",
+          "party": "PProf",
+          "alternates": ["Aeromoça", "Detetive"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/931_enfermeira.jpg",
+              "caption": "Senadora"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/931_aeromoca.jpg",
+              "caption": "1º Suplente",
+              "small": true
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/931_detetive.jpg",
+              "caption": "2° Suplente",
+              "small": true
+            }
+          ]
+        },
+        {
+          "number": "941",
+          "name": "Festa Junina",
+          "party": "PFest",
+          "alternates": ["Lavagem do Bonfim", "Dia das Bruxas"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/941_festa_junina.jpg",
+              "caption": "Senadora"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/941_lavagem_do_bonfim.jpg",
+              "caption": "1º Suplente",
+              "small": true
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/941_dia_das_bruxas.jpg",
+              "caption": "2° Suplente",
+              "small": true
+            }
+          ]
+        },
+        {
+          "number": "951",
+          "name": "Saci-Pererê",
+          "party": "PFolc",
+          "alternates": ["Caipora", "Mãe do Ouro"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/951_saci.jpg",
+              "caption": "Senador"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/951_caipora.jpg",
+              "caption": "1º Suplente",
+              "small": true
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/951_mae_douro.jpg",
+              "caption": "2° Suplente",
+              "small": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "GOVERNADOR",
+      "digits": 2,
+      "candidates": [
+        {
+          "number": "91",
+          "name": "Vôlei",
+          "party": "PEsp",
+          "alternates": ["Tênis"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/91_volei.jpg",
+              "caption": "Governador"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/951_caipora.jpg",
+              "caption": "Vice-Governador",
+              "small": true
+            }
+          ]
+        },
+        {
+          "number": "92",
+          "name": "Forró",
+          "party": "PMus",
+          "alternates": ["Pagode"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/92_forro.jpg",
+              "caption": "Governador"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/92_pagode.jpg",
+              "caption": "Vice-Governador",
+              "small": true
+            }
+          ]
+        },
+        {
+          "number": "93",
+          "name": "Médica",
+          "party": "PProf",
+          "alternates": ["Bibliotecária"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/93_medica.jpg",
+              "caption": "Governadora"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/93_bibliotecaria.jpg",
+              "caption": "Vice-Governadora",
+              "small": true
+            }
+          ]
+        },
+        {
+          "number": "94",
+          "name": "Dia da Independência do Brasil",
+          "party": "PFest",
+          "alternates": ["Natal"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/94_independencia_do_brasil.jpg",
+              "caption": "Governador"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/94_natal.jpg",
+              "caption": "Vice-Governador",
+              "small": true
+            }
+          ]
+        },
+        {
+          "number": "95",
+          "name": "Boto Cor-de-Rosa",
+          "party": "PFolc",
+          "alternates": ["Boitatá"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/95_boto.jpg",
+              "caption": "Governador"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/95_boitata.jpg",
+              "caption": "Vice-Governador",
+              "small": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "PRESIDENTE",
+      "digits": 2,
+      "candidates": [
+        {
+          "number": "91",
+          "name": "Futebol",
+          "party": "PEsp",
+          "alternates": ["Judô"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/91_futebol.jpg",
+              "caption": "Presidente"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/91_judo.jpg",
+              "caption": "Vice-Presidente",
+              "small": true
+            }
+          ]
+        },
+        {
+          "number": "92",
+          "name": "Rock",
+          "party": "PMus",
+          "alternates": ["Música Popular Brasileira"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/92_rock.jpg",
+              "caption": "Presidente"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/92_musica_popular_brasileira.jpg",
+              "caption": "Vice-Presidente",
+              "small": true
+            }
+          ]
+        },
+        {
+          "number": "93",
+          "name": "Professora",
+          "party": "PProf",
+          "alternates": ["Carnaval"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/94_copa_do_mundo.jpg",
+              "caption": "Presidente"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/94_carnaval.jpg",
+              "caption": "Vice-Presidente",
+              "small": true
+            }
+          ]
+        },
+        {
+          "number": "94",
+          "name": "Copa do Mundo",
+          "party": "PFest",
+          "alternates": ["Carnaval"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/94_copa_do_mundo.jpg",
+              "caption": "Presidente"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/94_natal.jpg",
+              "caption": "Vice-Presidente",
+              "small": true
+            }
+          ]
+        },
+        {
+          "number": "95",
+          "name": "Vitória-Régia",
+          "party": "PFolc",
+          "alternates": ["Curupira"],
+          "images": [
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/95_vitoria_regia.jpg",
+              "caption": "Presidente"
+            },
+            {
+              "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/95_curupira.jpg",
+              "caption": "Vice-Presidente",
+              "small": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
