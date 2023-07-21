@@ -1,10 +1,11 @@
 'use client'
 import { ReactNode } from 'react'
 import { usePathname } from 'next/navigation'
+
 import { ModalProvider } from '@/hooks/useModal'
 import { UserProvider } from '@/hooks/useUser'
+import { RoleProvider } from '@/hooks/useRole'
 
-import { Header } from '@/app/components/Header'
 import { PrivateRoute } from '@/components/PrivateRoute'
 
 import { checkIsPublicRoute } from '@/functions'
@@ -20,8 +21,9 @@ export function Providers({ children }: ProvidersProps) {
   return (
     <UserProvider>
       <ModalProvider>
-        <Header />
-        {isPublicRoute ? children : <PrivateRoute>{children}</PrivateRoute>}
+        <RoleProvider>
+          {isPublicRoute ? children : <PrivateRoute>{children}</PrivateRoute>}
+        </RoleProvider>
       </ModalProvider>
     </UserProvider>
   )
