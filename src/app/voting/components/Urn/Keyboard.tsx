@@ -30,13 +30,13 @@ export function Keyboard() {
         </div>
 
         <div className='col-span-3 flex items-center justify-between mt-3'>
-          <Key className="bg-zinc-100 text-zinc-800 px-3 py-2" value="Branco" />
+          <Key className="bg-zinc-100 text-zinc-800 px-2 py-2" value="Branco" />
           <Key
-            className="bg-orange-600 text-zinc-950 px-3 py-2"
+            className="bg-orange-600 text-zinc-950 px-2 py-2"
             value="Corrige"
           />
           <Key
-            className="bg-green-600 text-sm text-zinc-950 px-3 py-3"
+            className="bg-green-600 text-sm text-zinc-950 px-2 py-3"
             value="Confirma"
           />
         </div>
