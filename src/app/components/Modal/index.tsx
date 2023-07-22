@@ -46,10 +46,12 @@ const animations: Animation = {
   success: Success,
 }
 
+export type Type = 'error' | 'warning' | 'success'
+
 export interface ModalProps {
+  type: Type
   title: string
   text: string
-  type: string
 }
 
 export interface ModalComponent {
