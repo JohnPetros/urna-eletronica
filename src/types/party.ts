@@ -4,5 +4,5 @@ export type Party = {
   title: string
   abbr: string
   number: number
-  candidates: Candidate[] | []
+  candidates: Candidate[]
 }
