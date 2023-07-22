@@ -17,6 +17,7 @@ type UrnState = {
   canPressKey: boolean
   isWhiteVote: boolean
   votedCandidates: Candidate[]
+  isEnd: boolean
 }
 
 type UrnAction =
@@ -38,6 +39,7 @@ const initialUrnState: UrnState = {
   canPressKey: true,
   isWhiteVote: false,
   votedCandidates: [],
+  isEnd: true,
 }
 
 function UrnReducer(state: UrnState, action: UrnAction): UrnState {
@@ -65,6 +67,14 @@ function UrnReducer(state: UrnState, action: UrnAction): UrnState {
     const currentIndex = ROLES_TITLES.findIndex(
       (roleTitle) => roleTitle === state.activeRoleTitle
     )
+
+    if (currentIndex + 1 === ROLES_TITLES.length) {
+      return {
+        isEnd: true,
+        canPressKey: false,
+        isWhiteVote: false,
+      }
+    }
 
     return {
       activeRoleTitle: ROLES_TITLES[currentIndex + 1],

@@ -23,14 +23,11 @@ export function Key({ value, isAction = false, className }: KeyProps) {
   }
 
   function handleKeyPress() {
-    load(
+    new Audio(
       `/audios/${
         value === 'Confirma' && !state.canPressKey ? 'confirm' : 'key'
-      }.wav`,
-      {
-        autoplay: true,
-      }
-    )
+      }.wav`
+    ).play()
 
     dispatch({ type: 'pressKey', payload: value.toLowerCase() })
   }
