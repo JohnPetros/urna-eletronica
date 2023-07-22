@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 
 import { ModalProvider } from '@/hooks/useModal'
 import { UserProvider } from '@/hooks/useUser'
-import { RoleProvider } from '@/hooks/useRole'
+import { UrnProvider } from '@/hooks/useUrn'
 
 import { PrivateRoute } from '@/components/PrivateRoute'
 
@@ -21,9 +21,9 @@ export function Providers({ children }: ProvidersProps) {
   return (
     <UserProvider>
       <ModalProvider>
-        <RoleProvider>
+        <UrnProvider>
           {isPublicRoute ? children : <PrivateRoute>{children}</PrivateRoute>}
-        </RoleProvider>
+        </UrnProvider>
       </ModalProvider>
     </UserProvider>
   )

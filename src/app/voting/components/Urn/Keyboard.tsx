@@ -4,8 +4,6 @@ import { Key } from './Key'
 const keys = new Array(9).fill('').map((_, index) => index + 1)
 
 export function Keyboard() {
-  console.log(keys)
-
   return (
     <div>
       <header className="bg-zinc-200 flex items-center justify-between py-2 px-4">
@@ -29,7 +27,7 @@ export function Keyboard() {
           <Key className="bg-zinc-800 px-9 py-2" value="0" />
         </div>
 
-        <div className='col-span-3 flex items-center justify-between mt-3'>
+        <div className="col-span-3 flex items-center justify-between mt-3">
           <Key className="bg-zinc-100 text-zinc-800 px-2 py-2" value="Branco" />
           <Key
             className="bg-orange-600 text-zinc-950 px-2 py-2"

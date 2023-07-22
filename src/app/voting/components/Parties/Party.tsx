@@ -1,9 +1,9 @@
 'use client'
-import { useRole } from '@/hooks/useRole'
+import { useUrn } from '@/hooks/useUrn'
 import { Candidate } from './Candidate'
 import type { Party } from '@/types/party'
 
-import { AnimatePresence, Variants, motion } from 'framer-motion'
+import { Variants, motion } from 'framer-motion'
 
 interface PartyProps {
   data: Party
@@ -14,7 +14,7 @@ export function Party({
   data: { title, abbr, number, candidates },
   onClose,
 }: PartyProps) {
-  const { activeRoleTitle } = useRole()
+  const { activeRoleTitle } = useUrn()
 
   const partyVariants: Variants = {
     initial: {

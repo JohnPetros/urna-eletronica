@@ -1,8 +1,8 @@
 'use client'
 import { useState } from 'react'
-import { useRole } from '@/hooks/useRole'
+import { useUrn } from '@/hooks/useUrn'
 
-import type { Role } from '@/types/roles'
+import type { Role } from '@/types/role'
 import type { Party as PartyData } from '@/types/party'
 
 import { PARTIES } from '@/constants/parties'
@@ -15,7 +15,7 @@ interface PartiesProps {
 }
 
 export function Parties({ roles }: PartiesProps) {
-  const { activeRoleTitle } = useRole()
+  const { activeRoleTitle } = useUrn()
   const [activeParty, setActiveParty] = useState<PartyData | null>(null)
 
   const partiesVariants: Variants = {
