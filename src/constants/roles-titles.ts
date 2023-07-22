@@ -1,4 +1,4 @@
-export const ROLES = [
+export const ROLES_TITLES = [
   'DEPUTADO FEDERAL',
   'DEPUTADO ESTADUAL',
   'SENADOR',
