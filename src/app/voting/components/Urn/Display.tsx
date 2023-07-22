@@ -86,7 +86,7 @@ export function Display({ roles }: DisplayProps) {
 
   return (
     <div className="bg-zinc-size border border-zinc-800 bg-zinc-100 flex flex-col justify-between">
-      <div className="flex justify-between pt-3 px-4">
+      <div className="flex justify-between pt-3 px-6">
         <div>
           <span
             className={
@@ -123,7 +123,7 @@ export function Display({ roles }: DisplayProps) {
             </motion.strong>
           </div>
 
-          <dl className={choosenCandidate ? 'opacity-1 mt-4 text-sm' : 'opacity-0'}>
+          <dl className={choosenCandidate ? 'opacity-1 mt-4' : 'opacity-0'}>
             <div className="flex items-center gap-2">
               <dt>Nome: </dt>
               <dl className="texte-center">{choosenCandidate?.name}</dl>
@@ -132,7 +132,7 @@ export function Display({ roles }: DisplayProps) {
               <dt>Partido: </dt>
               <dl>{choosenCandidate?.party}</dl>
             </div>
-            {choosenCandidate?.alternates?.length > 0 &&
+            {choosenCandidate?.alternates &&
               choosenCandidate?.images.slice(1).map(({ caption }, index) => (
                 <div className="flex items-center gap-2 mt-2">
                   <dt>{caption}: </dt>
@@ -151,7 +151,7 @@ export function Display({ roles }: DisplayProps) {
         >
           {choosenCandidate?.images.map(({ url, caption }, index) => {
             const isFirst = index === 0
-            const size = isFirst ? 88 : 64
+            const size = isFirst ? 88 : 60
             return (
               <div
                 style={{ width: size }}
@@ -169,7 +169,7 @@ export function Display({ roles }: DisplayProps) {
                 {!isFirst && (
                   <Image src={url} width={size} height={size} alt={caption} />
                 )}
-                <small className=" text-center text-[10px] font-medium">
+                <small className="p-[1px] text-center text-[10px] font-medium">
                   {caption}
                 </small>
               </div>

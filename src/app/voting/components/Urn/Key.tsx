@@ -2,6 +2,7 @@
 import { twMerge } from 'tailwind-merge'
 import { Variants, motion } from 'framer-motion'
 import { useUrn } from '@/hooks/useUrn'
+import { useAudioPlayer } from 'react-use-audio-player'
 
 interface KeyProps {
   value: string
@@ -10,6 +11,8 @@ interface KeyProps {
 }
 
 export function Key({ value, isAction = false, className }: KeyProps) {
+  const { load } = useAudioPlayer()
+
   const { state, dispatch } = useUrn()
   const isEnable = state.canPressKey || isAction
 
@@ -19,11 +22,24 @@ export function Key({ value, isAction = false, className }: KeyProps) {
     },
   }
 
+  function handleKeyPress() {
+    load(
+      `/audios/${
+        value === 'Confirma' && !state.canPressKey ? 'confirm' : 'key'
+      }.wav`,
+      {
+        autoplay: true,
+      }
+    )
+
+    dispatch({ type: 'pressKey', payload: value.toLowerCase() })
+  }
+
   return (
     <motion.button
       onClick={() => {
         if (isEnable) {
-          dispatch({ type: 'pressKey', payload: value.toLowerCase() })
+          handleKeyPress()
         }
       }}
       variants={keyVariants}

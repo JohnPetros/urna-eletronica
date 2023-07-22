@@ -1,7 +1,8 @@
+import { ReactNode, createContext, useContext, useReducer } from 'react'
+import { useModal } from '../useModal'
+
 import { ROLES_TITLES } from '@/constants/roles-titles'
 import { Candidate } from '@/types/candidate'
-import { ReactNode, createContext, useContext, useReducer, useRef } from 'react'
-import { useModal } from '../useModal'
 
 type RoleTitle = (typeof ROLES_TITLES)[number]
 
@@ -30,8 +31,8 @@ interface UrnContextValue {
 
 const UrnContext = createContext({} as UrnContextValue)
 
-const initialUrnState = {
-  activeRoleTitle: 'SENADOR',
+const initialUrnState: UrnState = {
+  activeRoleTitle: 'DEPUTADO FEDERAL',
   choosenCandidate: null,
   pressedNumbers: [],
   canPressKey: true,
@@ -88,7 +89,8 @@ function UrnReducer(state: UrnState, action: UrnAction): UrnState {
             title: 'Para votar em BRANCO, o campo de voto deve estar vazio.',
             text: 'Aperte CORRIGE para apagar o campo de voto.',
           })
-          return {}
+
+          return
         }
         return { isWhiteVote: true, canPressKey: false }
       case 'corrige':
