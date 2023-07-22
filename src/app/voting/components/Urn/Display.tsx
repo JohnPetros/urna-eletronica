@@ -85,8 +85,8 @@ export function Display({ roles }: DisplayProps) {
   }, [isWhiteVote])
 
   return (
-    <div className="bg-zinc-100 border border-zinc-800 flex flex-col justify-between">
-      <div className="flex justify-between pt-6 px-6">
+    <div className="bg-zinc-size border border-zinc-800 bg-zinc-100 flex flex-col justify-between">
+      <div className="flex justify-between pt-3 px-4">
         <div>
           <span
             className={
@@ -113,9 +113,7 @@ export function Display({ roles }: DisplayProps) {
             ))}
           </div>
 
-          <div
-            className={isNullVote || isWhiteVote ? 'opacity-1' : 'opacity-0'}
-          >
+          <div className={isNullVote || isWhiteVote ? 'visible' : 'hidden'}>
             <motion.strong
               variants={blinkVariants}
               animate={'blink'}
@@ -125,27 +123,58 @@ export function Display({ roles }: DisplayProps) {
             </motion.strong>
           </div>
 
-          <dl className={choosenCandidate ? 'opacity-1' : 'opacity-0'}>
+          <dl className={choosenCandidate ? 'opacity-1 mt-4 text-sm' : 'opacity-0'}>
             <div className="flex items-center gap-2">
               <dt>Nome: </dt>
-              <dl>{choosenCandidate?.name}</dl>
+              <dl className="texte-center">{choosenCandidate?.name}</dl>
             </div>
             <div className="flex items-center gap-2 mt-2">
               <dt>Partido: </dt>
               <dl>{choosenCandidate?.party}</dl>
             </div>
+            {choosenCandidate?.alternates?.length > 0 &&
+              choosenCandidate?.images.slice(1).map(({ caption }, index) => (
+                <div className="flex items-center gap-2 mt-2">
+                  <dt>{caption}: </dt>
+                  <dl>{choosenCandidate.alternates[index]}</dl>
+                </div>
+              ))}
           </dl>
         </div>
 
-        <div className={choosenCandidate ? 'opacity-1' : 'opacity-0'}>
-          {choosenCandidate?.images.map((image) => (
-            <Image
-              src={image.url}
-              width={80}
-              height={100}
-              alt={image.caption}
-            />
-          ))}
+        <div
+          className={
+            choosenCandidate
+              ? 'opacity-1 flex flex-wrap justify-end items-start w-[132px]'
+              : 'opacity-0'
+          }
+        >
+          {choosenCandidate?.images.map(({ url, caption }, index) => {
+            const isFirst = index === 0
+            const size = isFirst ? 88 : 64
+            return (
+              <div
+                style={{ width: size }}
+                className={`border border-zinc-800 flex flex-col items-center justify-center`}
+              >
+                {isFirst && (
+                  <Image
+                    src={url}
+                    width={size}
+                    height={size}
+                    className="block"
+                    alt={caption}
+                  />
+                )}
+                {!isFirst && (
+                  <Image src={url} width={size} height={size} alt={caption} />
+                )}
+                <small className=" text-center text-[10px] font-medium">
+                  {caption}
+                </small>
+              </div>
+            )
+          })}
         </div>
       </div>
 

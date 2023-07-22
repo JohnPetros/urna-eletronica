@@ -5,4 +5,5 @@ export type Candidate = {
   name: string
   party: string
   images: Image[]
+  alternates: string[]
 }
