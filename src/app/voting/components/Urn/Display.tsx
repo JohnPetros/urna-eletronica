@@ -31,7 +31,7 @@ interface DisplayProps {
 
 export function Display({ roles }: DisplayProps) {
   const {
-    state: { activeRoleTitle, pressedNumbers, choosenCandidate },
+    state: { activeRoleTitle, pressedNumbers, choosenCandidate, isWhiteVote },
     dispatch,
   } = useUrn()
   const [activeDigit, setActiveDigit] = useState(0)
@@ -67,13 +67,22 @@ export function Display({ roles }: DisplayProps) {
         return
       }
 
-      setChoosenCandidate(null)
+      setChoosenCandidate(activeCandidate)
       return
     }
 
     setIsNullVote(false)
+    setChoosenCandidate(null)
     setCanPressKey(true)
   }, [pressedNumbers])
+
+  useEffect(() => {
+    if (isWhiteVote) {
+      setIsNullVote(false)
+      setChoosenCandidate(null)
+      setCanPressKey(false)
+    }
+  }, [isWhiteVote])
 
   return (
     <div className="bg-zinc-100 border border-zinc-800 flex flex-col justify-between">
@@ -90,7 +99,11 @@ export function Display({ roles }: DisplayProps) {
             {activeRoleTitle}
           </strong>
 
-          <div className="flex gap-2 mt-4">
+          <div
+            className={`flex gap-2 mt-4 ${
+              !isWhiteVote ? 'opacity-1' : 'opacity-0'
+            }`}
+          >
             {Array.from({ length: digitsAmount }).map((_, index) => (
               <Digit
                 key={`Digit-${index}`}
@@ -100,11 +113,13 @@ export function Display({ roles }: DisplayProps) {
             ))}
           </div>
 
-          <div className={isNullVote ? 'opacity-1' : 'opacity-0'}>
+          <div
+            className={isNullVote || isWhiteVote ? 'opacity-1' : 'opacity-0'}
+          >
             <motion.strong
               variants={blinkVariants}
               animate={'blink'}
-              className="uppercase font-extrabold text-zinc-900 text-4xl block p-2 mt-4 tracking-wider"
+              className="uppercase font-extrabold text-zinc-900 text-3xl block p-2 mt-4 tracking-wider"
             >
               Voto Nulo
             </motion.strong>

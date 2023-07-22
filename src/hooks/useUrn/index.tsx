@@ -13,6 +13,7 @@ type UrnState = {
   choosenCandidate: Candidate | null
   pressedNumbers: number[]
   canPressKey: boolean
+  isWhiteVote: boolean
 }
 
 type UrnAction =
@@ -32,6 +33,7 @@ const initialUrnState = {
   choosenCandidate: null,
   pressedNumbers: [],
   canPressKey: true,
+  isWhiteVote: false,
 }
 
 function UrnReducer(state: UrnState, action: UrnAction): UrnState {
@@ -64,8 +66,13 @@ function UrnReducer(state: UrnState, action: UrnAction): UrnState {
 
     switch (key) {
       case 'branco':
+        return { isWhiteVote: true }
       case 'corrige':
-        return state.canPressKey ? removeLastNumber() : removeAllNumbers()
+        return {
+          isWhiteVote: false,
+          ...(state.canPressKey ? removeLastNumber() : removeAllNumbers()),
+        }
+
       case 'confirma':
       default:
         return
