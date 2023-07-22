@@ -15,7 +15,7 @@ interface PartiesProps {
 }
 
 export function Parties({ roles }: PartiesProps) {
-  const { activeRoleTitle } = useUrn()
+  const { state } = useUrn()
   const [activeParty, setActiveParty] = useState<PartyData | null>(null)
 
   const partiesVariants: Variants = {
@@ -43,7 +43,7 @@ export function Parties({ roles }: PartiesProps) {
   }
 
   function handlePartyClick(abbr: string) {
-    const activeRole = roles.find((role) => role.title === activeRoleTitle)!
+    const activeRole = roles.find((role) => role.title === state.activeRoleTitle)!
 
     const activePartyCandidates = activeRole.candidates.filter(
       (cadidate) => cadidate.party === abbr
@@ -75,6 +75,7 @@ export function Parties({ roles }: PartiesProps) {
             <div className="flex items-center justify-center gap-6 border-t border-zinc-300">
               {PARTIES.map(({ title, abbr }) => (
                 <button
+                  key={abbr}
                   onClick={() => handlePartyClick(abbr)}
                   className=" flex flex-col gap-1 items-center py-7 px-2 font-medium hover:text-white transition-colors duration-200"
                 >

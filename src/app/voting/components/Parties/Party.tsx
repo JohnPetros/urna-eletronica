@@ -14,7 +14,7 @@ export function Party({
   data: { title, abbr, number, candidates },
   onClose,
 }: PartyProps) {
-  const { activeRoleTitle } = useUrn()
+  const { state } = useUrn()
 
   const partyVariants: Variants = {
     initial: {
@@ -48,7 +48,7 @@ export function Party({
           <span>{abbr}</span>
           <span>{title}</span>
         </div>
-        <strong className="block mt-6">{activeRoleTitle}</strong>
+        <strong className="block mt-6">{state.activeRoleTitle}</strong>
       </div>
 
       {candidates.map(({ name, images, number }) => (

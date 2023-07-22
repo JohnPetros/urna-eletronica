@@ -19,7 +19,7 @@ export function Keyboard() {
       </header>
       <div className="grid grid-cols-3 gap-2 bg-zinc-600 p-6">
         {keys.map((key) => (
-          <div key={key} className="grid place-content-center">
+          <div key={key} className="grid place-content-center ">
             <Key className="bg-zinc-800 px-9 py-2" value={String(key)} />
           </div>
         ))}
@@ -28,14 +28,20 @@ export function Keyboard() {
         </div>
 
         <div className="col-span-3 flex items-center justify-between mt-3">
-          <Key className="bg-zinc-100 text-zinc-800 px-2 py-2" value="Branco" />
           <Key
-            className="bg-orange-600 text-zinc-950 px-2 py-2"
-            value="Corrige"
+            className="bg-zinc-100 text-zinc-800 px-2 py-2 text-sm"
+            value="Branco"
+            isAction={true}
           />
           <Key
-            className="bg-green-600 text-sm text-zinc-950 px-2 py-3"
+            className="bg-orange-600 text-zinc-950 px-2 py-2 text-sm"
+            value="Corrige"
+            isAction={true}
+          />
+          <Key
+            className="bg-green-600 text-zinc-950 px-2 py-3 text-sm"
             value="Confirma"
+            isAction={true}
           />
         </div>
       </div>
