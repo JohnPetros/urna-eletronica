@@ -33,21 +33,37 @@ export function Candidate({ name, images, number }: CandidateProps) {
   return (
     <motion.div
       variants={candidateVariants}
-      className="w-32 flex flex-col items-center justify-center"
+      className="flex flex-col items-center justify-center relative"
     >
-      {images.map(({ url, caption }) => (
-        <motion.div
-          key={url}
-          variants={imageVarians}
-          initial="initial"
-          whileHover="hover"
-        >
-          <Image key={url} src={url} width={72} height={48} alt={caption} />
-        </motion.div>
-      ))}
-      <div className="flex flex-col text-center">
-        <small className="text-base">{name}</small>
-        <strong className="text-zinc-100">{number}</strong>
+      <div className="flex gap-3">
+        {images.map(({ url, caption }, index) => {
+          const isFirst = index === 0
+
+          return (
+            <motion.div
+              key={url}
+              variants={imageVarians}
+              initial="initial"
+              whileHover="hover"
+            >
+              {isFirst && (
+                <div className="flex flex-col items-center">
+                  <Image src={url} width={72} height={64} alt={caption} />
+                  <div className="flex flex-col text-center">
+                    <small className="text-sm">{name}</small>
+                    <strong className="text-zinc-100">{number}</strong>
+                  </div>
+                </div>
+              )}
+              {!isFirst && (
+                <div className=" flex flex-col items-center pointer-events-none">
+                  <Image src={url} width={40} height={40} alt={caption} />
+                  <small>{caption}</small>
+                </div>
+              )}
+            </motion.div>
+          )
+        })}
       </div>
     </motion.div>
   )

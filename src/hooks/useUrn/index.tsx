@@ -15,6 +15,7 @@ type UrnState = {
   pressedNumbers: number[]
   canPressKey: boolean
   isWhiteVote: boolean
+  votedCandidates: Candidate[]
 }
 
 type UrnAction =
@@ -30,11 +31,12 @@ interface UrnContextValue {
 const UrnContext = createContext({} as UrnContextValue)
 
 const initialUrnState = {
-  activeRoleTitle: 'DEPUTADO FEDERAL',
+  activeRoleTitle: 'SENADOR',
   choosenCandidate: null,
   pressedNumbers: [],
   canPressKey: true,
   isWhiteVote: false,
+  votedCandidates: [],
 }
 
 function UrnReducer(state: UrnState, action: UrnAction): UrnState {
@@ -52,12 +54,23 @@ function UrnReducer(state: UrnState, action: UrnAction): UrnState {
     return { pressedNumbers: [] }
   }
 
+  function addVotedCandidate() {
+    return {
+      votedCandidates: [...state.votedCandidates, state.choosenCandidate],
+    }
+  }
+
   function nextRole() {
     const currentIndex = ROLES_TITLES.findIndex(
       (roleTitle) => roleTitle === state.activeRoleTitle
     )
 
-    return { activeRole: ROLES_TITLES[currentIndex + 1] }
+    return {
+      activeRoleTitle: ROLES_TITLES[currentIndex + 1],
+      canPressKey: true,
+      isWhiteVote: false,
+      ...removeAllNumbers(),
+    }
   }
 
   function handleKeyPress(key: string) {
@@ -77,7 +90,7 @@ function UrnReducer(state: UrnState, action: UrnAction): UrnState {
           })
           return {}
         }
-        return { isWhiteVote: true }
+        return { isWhiteVote: true, canPressKey: false }
       case 'corrige':
         return {
           isWhiteVote: false,
@@ -85,6 +98,16 @@ function UrnReducer(state: UrnState, action: UrnAction): UrnState {
         }
 
       case 'confirma':
+        if (state.canPressKey) {
+          openModal({
+            type: 'error',
+            title: 'Para votar, o campo de voto deve estar completo.',
+            text: 'Insira o dígitos pressionando as teclas numéricas.',
+          })
+          return
+        }
+
+        return { ...addVotedCandidate(), ...nextRole() }
       default:
         return
     }

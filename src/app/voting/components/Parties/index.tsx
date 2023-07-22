@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useUrn } from '@/hooks/useUrn'
 
 import type { Role } from '@/types/role'
@@ -43,7 +43,9 @@ export function Parties({ roles }: PartiesProps) {
   }
 
   function handlePartyClick(abbr: string) {
-    const activeRole = roles.find((role) => role.title === state.activeRoleTitle)!
+    const activeRole = roles.find(
+      (role) => role.title === state.activeRoleTitle
+    )!
 
     const activePartyCandidates = activeRole.candidates.filter(
       (cadidate) => cadidate.party === abbr
@@ -57,8 +59,12 @@ export function Parties({ roles }: PartiesProps) {
     setActiveParty(activeParty)
   }
 
+  useEffect(() => {
+    setActiveParty(null)
+  }, [state.activeRoleTitle])
+
   return (
-    <div className="bg-blue-900 px-6 text-zinc-200 h-[260px]">
+    <div className="bg-blue-900 px-6 text-zinc-200 h-[248px]">
       {activeParty ? (
         <Party data={activeParty} onClose={closeParty} />
       ) : (
