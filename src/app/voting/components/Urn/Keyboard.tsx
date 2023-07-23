@@ -17,29 +17,32 @@ export function Keyboard() {
           Justiça eleitoral
         </h2>
       </header>
-      <div className="grid grid-cols-3 gap-2 bg-zinc-600 p-6">
+      <div className="grid grid-cols-3 items-center gap-2 bg-zinc-600 p-6">
         {keys.map((key) => (
-          <div key={key} className="grid place-content-center ">
-            <Key className="bg-zinc-800 px-9 py-2" value={String(key)} />
+          <div key={key} className="flex md:flex items-center justify-center">
+            <Key
+              className="bg-zinc-800 w-full md:px-9 py-2"
+              value={String(key)}
+            />
           </div>
         ))}
-        <div className="col-span-3 grid place-content-center">
-          <Key className="bg-zinc-800 px-9 py-2" value="0" />
+        <div className="col-span-3 flex md:flex items-center justify-center">
+          <Key className="bg-zinc-800 px-16 md:px-9 py-2" value="0" />
         </div>
 
         <div className="col-span-3 flex items-center justify-between mt-3">
           <Key
-            className="bg-zinc-100 text-zinc-800 px-2 py-2 text-sm"
+            className="bg-zinc-100 text-zinc-800 w-[30%] md:w-auto md:px-2 py-2 text-sm"
             value="Branco"
             isAction={true}
           />
           <Key
-            className="bg-orange-600 text-zinc-950 px-2 py-2 text-sm"
+            className="bg-orange-600 text-zinc-950 w-[30%] md:w-auto md:px-2 py-2 text-sm"
             value="Corrige"
             isAction={true}
           />
           <Key
-            className="bg-green-600 text-zinc-950 px-2 py-3 text-sm"
+            className="bg-green-600 text-zinc-950 w-[30%] md:w-auto md:px-2 py-3 text-sm"
             value="Confirma"
             isAction={true}
           />

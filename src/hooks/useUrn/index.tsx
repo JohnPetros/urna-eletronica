@@ -33,13 +33,13 @@ interface UrnContextValue {
 const UrnContext = createContext({} as UrnContextValue)
 
 const initialUrnState: UrnState = {
-  activeRoleTitle: 'DEPUTADO FEDERAL',
+  activeRoleTitle: 'SENADOR',
   choosenCandidate: null,
   pressedNumbers: [],
   canPressKey: true,
   isWhiteVote: false,
   votedCandidates: [],
-  isEnd: true,
+  isEnd: false,
 }
 
 function UrnReducer(state: UrnState, action: UrnAction): UrnState {
@@ -100,7 +100,7 @@ function UrnReducer(state: UrnState, action: UrnAction): UrnState {
             text: 'Aperte CORRIGE para apagar o campo de voto.',
           })
 
-          return
+          return 
         }
         return { isWhiteVote: true, canPressKey: false }
       case 'corrige':

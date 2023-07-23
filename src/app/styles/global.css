@@ -41,4 +41,5 @@ button:hover {
 
 a {
   text-decoration: inherit;
+  cursor: pointer;
 }

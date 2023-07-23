@@ -64,7 +64,7 @@ export function Parties({ roles }: PartiesProps) {
   }, [state.activeRoleTitle])
 
   return (
-    <div className="bg-blue-900 px-6 text-zinc-200 h-[248px]">
+    <div className="bg-blue-900 px-6 text-zinc-200 h-[264px]">
       {activeParty ? (
         <Party data={activeParty} onClose={closeParty} />
       ) : (

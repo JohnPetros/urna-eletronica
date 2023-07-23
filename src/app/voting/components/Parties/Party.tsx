@@ -40,7 +40,7 @@ export function Party({
       variants={partyVariants}
       initial="initial"
       animate="entry"
-      className="flex items-center justify-center gap-8 py-4 text-zinc-100 "
+      className="flex items-center justify-center gap-3 md:gap-6 py-4 text-zinc-100 "
     >
       <span className="text-2xl font-bold">{number}</span>
       <div>
@@ -51,8 +51,14 @@ export function Party({
         <strong className="block mt-6">{state.activeRoleTitle}</strong>
       </div>
 
-      {candidates.map(({ name, images, number }) => (
-        <Candidate key={number} name={name} images={images} number={number} />
+      {candidates.map(({ name, images, number, alternates }) => (
+        <Candidate
+          key={number}
+          name={name}
+          images={images}
+          number={number}
+          alternates={alternates}
+        />
       ))}
 
       <motion.button

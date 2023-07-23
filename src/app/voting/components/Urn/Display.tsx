@@ -11,6 +11,7 @@ import Image from 'next/image'
 import { Variants, motion } from 'framer-motion'
 import { useAudioPlayer } from 'react-use-audio-player'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 const BAR_GROW_DURATION = 2
 
 export const blinkVariants: Variants = {
@@ -133,12 +134,12 @@ export function Display({ roles }: DisplayProps) {
                 Fim
               </motion.strong>
 
-              <motion.button
+              <motion.span
                 whileHover={{ scale: 1.1 }}
                 className="mt-12 bg-blue-900 text-zinc-100 uppercase font-medium p-2 rounded-md"
               >
-                Visualizar votos
-              </motion.button>
+                <Link href={'/results'}>Visualizar votos</Link>
+              </motion.span>
             </>
           ) : (
             <>
@@ -193,12 +194,12 @@ export function Display({ roles }: DisplayProps) {
                 </motion.strong>
               </div>
 
-              <dl className={choosenCandidate ? 'opacity-1 mt-4' : 'opacity-0'}>
+              <dl className={choosenCandidate ? 'opacity-1 mt-4 text-sm' : 'opacity-0'}>
                 <div className="flex items-center gap-2">
                   <dt>Nome: </dt>
                   <dl className="texte-center">{choosenCandidate?.name}</dl>
                 </div>
-                <div className="flex items-center gap-2 mt-2">
+                <div className="flex items-center gap-x-2 mt-2">
                   <dt>Partido: </dt>
                   <dl>{choosenCandidate?.party}</dl>
                 </div>
@@ -217,13 +218,13 @@ export function Display({ roles }: DisplayProps) {
             <div
               className={
                 choosenCandidate
-                  ? 'opacity-1 flex flex-wrap justify-end items-start w-[132px]'
+                  ? 'opacity-1 flex flex-wrap gap-1 justify-end items-start w-[132px]'
                   : 'opacity-0'
               }
             >
               {choosenCandidate?.images.map(({ url, caption }, index) => {
                 const isFirst = index === 0
-                const size = isFirst ? 88 : 60
+                const size = isFirst ? 84 : 64
                 return (
                   <div
                     key={url}

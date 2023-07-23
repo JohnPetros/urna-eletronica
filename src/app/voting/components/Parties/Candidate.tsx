@@ -7,9 +7,15 @@ interface CandidateProps {
   name: string
   images: CandidateImage[]
   number: number
+  alternates: string[]
 }
 
-export function Candidate({ name, images, number }: CandidateProps) {
+export function Candidate({
+  name,
+  images,
+  number,
+  alternates,
+}: CandidateProps) {
   const candidateVariants: Variants = {
     initial: {
       opacity: 0,
@@ -45,6 +51,7 @@ export function Candidate({ name, images, number }: CandidateProps) {
               variants={imageVarians}
               initial="initial"
               whileHover="hover"
+              className='text-sm'
             >
               {isFirst && (
                 <div className="flex flex-col items-center">
@@ -58,7 +65,8 @@ export function Candidate({ name, images, number }: CandidateProps) {
               {!isFirst && (
                 <div className=" flex flex-col items-center pointer-events-none">
                   <Image src={url} width={40} height={40} alt={caption} />
-                  <small>{caption}</small>
+                  <small>{alternates[index - 1]}</small>
+                  <strong className="text-zinc-100 text-[10px]">{caption}</strong>
                 </div>
               )}
             </motion.div>
