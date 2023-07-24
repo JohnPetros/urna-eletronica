@@ -9,10 +9,11 @@ import { Digit } from './Digit'
 import Image from 'next/image'
 
 import { Variants, motion } from 'framer-motion'
-import { useAudioPlayer } from 'react-use-audio-player'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-const BAR_GROW_DURATION = 2
+
+import * as Progress from '@radix-ui/react-progress'
+
+const BAR_GROW_DURATION = 2000
 
 export const blinkVariants: Variants = {
   default: {
@@ -57,10 +58,10 @@ export function Display({ roles }: DisplayProps) {
     },
     dispatch,
   } = useUrn()
-  const { load } = useAudioPlayer()
   const [activeDigit, setActiveDigit] = useState(0)
   const [isNullVote, setIsNullVote] = useState(false)
   const [isEndMessageVisible, setIsEndMessageVisible] = useState(false)
+  const [progressValue, setProgressValue] = useState(0)
 
   const activeRole = roles.find((role: Role) => role.title === activeRoleTitle)!
   const digitsAmount = activeRole.digits
@@ -112,10 +113,12 @@ export function Display({ roles }: DisplayProps) {
   useEffect(() => {
     if (!isEnd) return
 
+    setProgressValue(100)
+
     const timer = setTimeout(() => {
       setIsEndMessageVisible(true)
       new Audio('/audios/confirm.wav').play()
-    }, BAR_GROW_DURATION * 1000)
+    }, BAR_GROW_DURATION)
 
     return () => clearTimeout(timer)
   }, [isEnd])
@@ -134,24 +137,32 @@ export function Display({ roles }: DisplayProps) {
                 Fim
               </motion.strong>
 
-              <motion.span
-                whileHover={{ scale: 1.1 }}
-                className="mt-12 bg-blue-900 text-zinc-100 uppercase font-medium p-2 rounded-md"
+              <Link
+                href={'/results'}
+                className="mt-12 bg-blue-900 text-zinc-100 uppercase font-medium p-2 rounded-md hover:scale-110 transition-all duration-200"
               >
-                <Link href={'/results'}>Visualizar votos</Link>
-              </motion.span>
+                Visualizar votos
+              </Link>
             </>
           ) : (
             <>
-              <strong className="uppercase text-4xl">Carregando...</strong>
-              <div className="w-2/3 bg-zinc-300 h-4 mt-4">
-                <motion.span
-                  variants={barVariants}
-                  initial="initial"
-                  animate="grow"
-                  className="block h-full bg-green-400"
+              <strong id="loading-bar" className="uppercase text-4xl">
+                Carregando...
+              </strong>
+              <Progress.Root
+                className="w-2/3 bg-zinc-300 h-4 mt-4"
+                value={progressValue}
+              >
+                <Progress.Indicator
+                  id="loading-bar"
+                  className="block h-full bg-green-500 transition-all"
+                  aria-labelledby="loading-bar"
+                  style={{
+                    width: `${progressValue}%`,
+                    transition: `width ${BAR_GROW_DURATION}ms linear`,
+                  }}
                 />
-              </div>
+              </Progress.Root>
             </>
           )}
         </div>
@@ -194,7 +205,11 @@ export function Display({ roles }: DisplayProps) {
                 </motion.strong>
               </div>
 
-              <dl className={choosenCandidate ? 'opacity-1 mt-4 text-sm' : 'opacity-0'}>
+              <dl
+                className={
+                  choosenCandidate ? 'opacity-1 mt-4 text-sm' : 'opacity-0'
+                }
+              >
                 <div className="flex items-center gap-2">
                   <dt>Nome: </dt>
                   <dl className="texte-center">{choosenCandidate?.name}</dl>
