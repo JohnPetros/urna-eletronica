@@ -97,6 +97,7 @@ export function ModalComponent({ title, text, type }: ModalProps, ref: any) {
         >
           <AnimatePresence>
             <motion.div
+              role="alertdialog"
               variants={variants}
               initial="hidden"
               animate="visible"
@@ -110,10 +111,12 @@ export function ModalComponent({ title, text, type }: ModalProps, ref: any) {
                 style={{ width: 80, height: 80 }}
               />
               <div>
-                <strong className="block text-xl text-center text-zinc-900">
+                <Dialog.Title className="block text-xl text-center text-zinc-900">
                   {title}
-                </strong>
-                <small className="block text-center text-lg mt-4">{text}</small>
+                </Dialog.Title>
+                <Dialog.Description className="block text-center text-lg mt-4">
+                  {text}
+                </Dialog.Description>
               </div>
 
               <Dialog.Close asChild>

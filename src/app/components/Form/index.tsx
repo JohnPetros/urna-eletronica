@@ -6,6 +6,7 @@ import { z } from 'zod'
 
 import { Input } from './Input'
 import { useUser } from '@/hooks/useUser'
+import { useRef } from 'react'
 
 const formSchema = z.object({
   name: z
@@ -34,6 +35,7 @@ export function Form() {
   } = useForm<FormFields>({
     resolver: zodResolver(formSchema),
   })
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
   function handleAge(age: number) {
     if (age < 16) {
@@ -74,6 +76,8 @@ export function Form() {
 
     if (isValidUser) {
       registerUser({ name: data.name })
+    } else {
+      buttonRef.current?.focus()
     }
   }
 
@@ -105,6 +109,7 @@ export function Form() {
       </fieldset>
       <footer className="px-6 pb-6">
         <button
+          ref={buttonRef}
           aria-label="submit"
           className="bg-blue-900 text-zinc-100 text-lg w-full py-2 hover:bg-blue-800 transition-colors rounded"
           type="submit"
