@@ -10,6 +10,8 @@ import { Party } from './Party'
 
 import { AnimatePresence, Variants, motion } from 'framer-motion'
 
+import * as Tabs from '@radix-ui/react-tabs'
+
 interface PartiesProps {
   roles: Role[]
 }
@@ -42,7 +44,7 @@ export function Parties({ roles }: PartiesProps) {
     setActiveParty(null)
   }
 
-  function handlePartyClick(abbr: string) {
+  function handlePartyClick(abbr: string, index: number) {
     const activeRole = roles.find(
       (role) => role.title === state.activeRoleTitle
     )!
@@ -64,9 +66,11 @@ export function Parties({ roles }: PartiesProps) {
   }, [state.activeRoleTitle])
 
   return (
-    <div className="bg-blue-900 px-6 text-zinc-200 h-[264px]">
+    <Tabs.Root className="bg-blue-900 px-6 text-zinc-200 h-[264px]">
       {activeParty ? (
-        <Party data={activeParty} onClose={closeParty} />
+        <Tabs.Content value={`tab-${activeParty.abbr}`}>
+          <Party data={activeParty} onClose={closeParty} />
+        </Tabs.Content>
       ) : (
         <AnimatePresence>
           <motion.div
@@ -78,21 +82,31 @@ export function Parties({ roles }: PartiesProps) {
             <p className="text-center text-lg py-6">
               Para visualizar os canditados, selecione um partido
             </p>
-            <div className="flex items-center justify-center gap-6 border-t border-zinc-300">
-              {PARTIES.map(({ title, abbr }) => (
-                <button
-                  key={abbr}
-                  onClick={() => handlePartyClick(abbr)}
-                  className=" flex flex-col gap-1 items-center py-7 px-2 font-medium hover:text-white transition-colors duration-200"
-                >
-                  <strong>{abbr}</strong>
-                  <small className="uppercase">{title}</small>
-                </button>
-              ))}
-            </div>
+            <Tabs.List
+              className="flex items-center justify-center gap-6 border-t border-zinc-300"
+              role="tab-list"
+              aria-label="Lista de partidos"
+            >
+              {PARTIES.map(({ title, abbr }, index) => {
+                return (
+                  <Tabs.Trigger
+                    key={abbr}
+                    value={`tab-${abbr}`}
+                    role="tab"
+                    id={`tab-${abbr}`}
+                    className=" flex flex-col gap-1 items-center py-7 px-2 font-medium hover:text-white transition-colors duration-200 cursor-pointer"
+                    aria-controls={`tab-partido-${abbr}`}
+                    onClick={() => handlePartyClick(abbr, index + 1)}
+                  >
+                    <strong>{abbr}</strong>
+                    <small className="uppercase">{title}</small>
+                  </Tabs.Trigger>
+                )
+              })}
+            </Tabs.List>
           </motion.div>
         </AnimatePresence>
       )}
-    </div>
+    </Tabs.Root>
   )
 }
