@@ -1,19 +1,55 @@
 import { RoleTitle } from '@/hooks/useUrn'
-import type { Candidate } from '@/types/candidate'
 import Image from 'next/image'
-
+import { Variants, motion } from 'framer-motion'
+import type { Candidate } from '@/types/candidate'
 interface VoteProps {
   role: RoleTitle
   candidate: Candidate | null
+  index: number
 }
 
-export function Vote({ role, candidate }: VoteProps) {
+export function Vote({ role, candidate, index }: VoteProps) {
+  const voteVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      x: -250,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: 0.2,
+        delayChildren: 0.5 * index,
+        when: 'beforeChildren',
+      },
+    },
+  }
+
+  const candidateVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      x: 250,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+    },
+  }
+
   return (
-    <div className="flex items-center justify-between gap-12 text-zinc-100">
+    <motion.div
+      variants={voteVariants}
+      initial="hidden"
+      animate="visible"
+      className="flex items-center justify-between gap-12 text-zinc-100"
+    >
       <dt className="uppercase">{role}:</dt>
 
       {candidate ? (
-        <dd className="flex items-center w-96 gap-2 mt-6 relative">
+        <motion.dd
+          variants={candidateVariants}
+          className="flex items-center w-96 gap-2 mt-6 relative"
+        >
           <Image
             src={candidate.images[0].url}
             width={64}
@@ -50,10 +86,15 @@ export function Vote({ role, candidate }: VoteProps) {
               ))}
             </ul>
           )}
-        </dd>
+        </motion.dd>
       ) : (
-        <p className="uppercase self-start">Voto em branco</p>
+        <motion.dd
+          variants={candidateVariants}
+          className="uppercase text-left mr-auto"
+        >
+          Voto em branco
+        </motion.dd>
       )}
-    </div>
+    </motion.div>
   )
 }
