@@ -4,7 +4,7 @@ import { useModal } from '../useModal'
 import { ROLES_TITLES } from '@/constants/roles-titles'
 import { Candidate } from '@/types/candidate'
 
-type RoleTitle = (typeof ROLES_TITLES)[number]
+export type RoleTitle = (typeof ROLES_TITLES)[number]
 
 interface RoleProviderProps {
   children: ReactNode
@@ -16,7 +16,7 @@ type UrnState = {
   pressedNumbers: number[]
   canPressKey: boolean
   isWhiteVote: boolean
-  votedCandidates: Candidate[]
+  votedCandidates: (Candidate | null)[]
   isEnd: boolean
 }
 
@@ -33,7 +33,7 @@ interface UrnContextValue {
 const UrnContext = createContext({} as UrnContextValue)
 
 const initialUrnState: UrnState = {
-  activeRoleTitle: 'SENADOR',
+  activeRoleTitle: 'PRESIDENTE',
   choosenCandidate: null,
   pressedNumbers: [],
   canPressKey: true,
@@ -100,7 +100,7 @@ function UrnReducer(state: UrnState, action: UrnAction): UrnState {
             text: 'Aperte CORRIGE para apagar o campo de voto.',
           })
 
-          return 
+          return
         }
         return { isWhiteVote: true, canPressKey: false }
       case 'corrige':
