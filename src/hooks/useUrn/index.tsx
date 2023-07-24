@@ -24,6 +24,7 @@ type UrnAction =
   | { type: 'pressKey'; payload: string }
   | { type: 'setCanPressKey'; payload: boolean }
   | { type: 'setChoosenCandidate'; payload: Candidate | null }
+  | { type: 'resetState' }
 
 interface UrnContextValue {
   state: UrnState
@@ -33,7 +34,7 @@ interface UrnContextValue {
 const UrnContext = createContext({} as UrnContextValue)
 
 const initialUrnState: UrnState = {
-  activeRoleTitle: 'PRESIDENTE',
+  activeRoleTitle: 'DEPUTADO FEDERAL',
   choosenCandidate: null,
   pressedNumbers: [],
   canPressKey: true,
@@ -132,6 +133,8 @@ function UrnReducer(state: UrnState, action: UrnAction): UrnState {
       return { ...state, choosenCandidate: action.payload }
     case 'setCanPressKey':
       return { ...state, canPressKey: action.payload }
+    case 'resetState':
+      return initialUrnState
     default:
       return state
   }

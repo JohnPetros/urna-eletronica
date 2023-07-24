@@ -43,14 +43,14 @@ export function Vote({ role, candidate, index }: VoteProps) {
       variants={voteVariants}
       initial="hidden"
       animate="visible"
-      className="flex items-center justify-between gap-12 text-zinc-100"
+      className=" flex flex-col gap-3 md:grid md:grid-cols-[1fr_1.2fr] content-center justify-center text-sm md:text-base px-3 md:p-0  text-zinc-100"
     >
       <dt className="uppercase">{role}:</dt>
 
       {candidate ? (
         <motion.dd
           variants={candidateVariants}
-          className="flex items-center w-96 gap-2 relative"
+          className="flex items-center gap-2 relative"
         >
           <Image
             src={candidate.images[0].url}
@@ -59,9 +59,9 @@ export function Vote({ role, candidate, index }: VoteProps) {
             alt={candidate.name}
           />
           <dl>
-            <div className="flex items-center gap-2 w-48">
+            <div className="flex items-center gap-3 w-48">
               <dt>Nome:</dt>
-              <dl>{candidate.name}</dl>
+              <dl className='truncate'>{candidate.name}</dl>
             </div>
             <div className="flex items-center gap-2 w-48">
               <dt>Partido:</dt>

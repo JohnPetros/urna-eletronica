@@ -27,7 +27,7 @@ const linkVariants: Variants = {
 const mock = [
   {
     number: '951',
-    name: 'Saci-Pererê',
+    name: 'Dia da indepencia do Brasil',
     party: 'PFolc',
     alternates: ['Caipora', 'Mãe do Ouro'],
     images: [
@@ -139,7 +139,7 @@ const mock = [
 ]
 
 export default function Results() {
-  const { state } = useUrn()
+  const { state, dispatch } = useUrn()
   const router = useRouter()
   const storagedUser = getStoragedUser()
 
@@ -148,18 +148,19 @@ export default function Results() {
     router.push('/')
   }
 
-  // if (!state.votedCandidates.length || !storagedUser) {
-  //   router.push('/voting')
-  //   return null
-  // }
+  if (!state.votedCandidates.length || !storagedUser) {
+    dispatch({ type: 'resetState' })
+    router.push('/voting')
+    return null
+  }
 
   return (
     <div className="bg-blue-900 h-screen flex flex-col items-center">
       <h2 className="text-zinc-100 text-2xl mt-6">
         Seus votos, {storagedUser.name}:
       </h2>
-      <dl className="flex flex-col gap-6 mt-6">
-        {mock.map((candidate, index) => (
+      <dl className="flex flex-col gap-8 mt-6">
+        {state.votedCandidates.map((candidate, index) => (
           <Vote
             role={ROLES_TITLES[index]}
             candidate={candidate}
