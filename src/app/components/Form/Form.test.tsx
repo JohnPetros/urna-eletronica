@@ -1,16 +1,38 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import {
+  fireEvent,
+  render,
+  renderHook,
+  screen,
+  waitFor,
+} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { mocked } from 'jest-mock'
 import { Form } from '.'
+import { ReactNode, useRef } from 'react'
+import { ModalProvider, ModalContext, useModal } from '../../../hooks/useModal'
+import { ModalProps } from '../Modal'
 
-const openModal = jest.fn()
+function renderForm() {
+  const mockedOpenModal = jest.fn()
+
+  render(
+    <ModalContext.Provider value={{ openModal: mockedOpenModal }}>
+      <Form />
+    </ModalContext.Provider>
+  )
+
+  return { mockedOpenModal }
+}
 
 describe('Form component', () => {
   it('should render correctly', () => {
-    render(<Form />)
+    renderForm()
 
-    const inputName = screen.getByLabelText(/nome/i)
-    const inputBirthdate = screen.getByLabelText(/data de nascimento/i)
+    const inputName = screen.getByLabelText('Nome')
+    const inputBirthdate = screen.getByLabelText('Data de nascimento')
     const button = screen.getByRole('button')
+
+    expect(true).toBe(true)
 
     expect(inputName).toBeVisible()
     expect(inputBirthdate).toBeVisible()
@@ -18,7 +40,7 @@ describe('Form component', () => {
   })
 
   it('should render error message on empty fields', async () => {
-    render(<Form />)
+    renderForm()
 
     const button = screen.getByText(/enviar/i)
 
@@ -31,7 +53,7 @@ describe('Form component', () => {
   })
 
   it('should render error message on name field with less than 3 characters', async () => {
-    render(<Form />)
+    renderForm()
 
     const button = screen.getByText(/enviar/i)
     const inputName = screen.getByLabelText(/nome/i)
@@ -47,8 +69,8 @@ describe('Form component', () => {
     })
   })
 
-  it('should render error message on birthdate field whose value under the min valid date (1900-01-01)', async () => {
-    render(<Form />)
+  it('should render error message on birthdate field whose value is under the min valid date (1900-01-01)', async () => {
+    renderForm()
 
     const button = screen.getByText(/enviar/i)
     const inputDate = screen.getByLabelText(/data de nascimento/i)
@@ -62,8 +84,8 @@ describe('Form component', () => {
     })
   })
 
-  it('should render error message on birthdate field whose value over the max valid date (today)', async () => {
-    render(<Form />)
+  it('should render error message on birthdate field whose value is over the max valid date (today)', async () => {
+    renderForm()
 
     const button = screen.getByText(/enviar/i)
     const inputDate = screen.getByLabelText(/data de nascimento/i)
@@ -77,26 +99,5 @@ describe('Form component', () => {
     })
   })
 
-  // it('should render error modal', async () => {
-  //   render(<Form />)
 
-  //   const button = screen.getByText(/enviar/i)
-  //   const inputDate = screen.getByLabelText(/data de nascimento/i)
-  //   const inputName = screen.getByLabelText(/nome/i)
-
-  //   userEvent.type(inputName, 'joao pedro')
-  //   fireEvent.change(inputDate, { target: { value: '2020-01-01' } })
-
-  //   userEvent.click(button)
-
-  //   await waitFor(() => {
-  //     expect(openModal).toHaveBeenCalledTimes(1)
-  //     expect(openModal).toHaveBeenCalledWith(
-  //       {
-  //         type: 'error',
-  //       },
-  //       expect.anything()
-  //     )
-  //   })
-  // })
 })

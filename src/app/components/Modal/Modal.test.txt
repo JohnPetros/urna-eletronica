@@ -1,0 +1,56 @@
+import { render, screen, waitFor } from '@testing-library/react'
+import UserEvent from '@testing-library/user-event'
+import { mocked } from 'jest-mock'
+import { Modal } from '.'
+import { useRef } from 'react'
+
+jest.mock('react')
+
+jest.mock('next/navigation', () => {
+  return {
+    useRouter() {
+      return {
+        router: { push: jest.fn() },
+      }
+    },
+  }
+})
+
+describe('Modal component', () => {
+  it('should render correctly', async () => {
+    const mockedModalRef = mocked(useRef)
+
+    mockedModalRef.mockReturnValue({
+      current: {
+        open: jest.fn(),
+        close: jest.fn()
+      },
+    })
+
+    render(
+      <Modal
+        ref={mockedModalRef}
+        type="success"
+        title="Mocked title"
+        text="Mocked text"
+      />
+    )
+
+    await waitFor(() => {
+      screen.getByText('Mocked title')
+      screen.getByText('Mocked text')
+    })
+  })
+
+  // it('should only close if its type is error or warning', async () => {
+  //   render(<Modal type="error" title="Mocked title" text="Mocked text" />)
+
+  //   const button = screen.getByText('Mocked title')
+
+  //   UserEvent.click(button)
+
+  //   await waitFor(() => {
+  //     expect(screen.getByText('Mocked title')).not.toBeVisible()
+  //   })
+  // })
+})

@@ -37,7 +37,7 @@ export function Form() {
   })
   const buttonRef = useRef<HTMLButtonElement>(null)
 
-  function handleAge(age: number) {
+   function handleAge(age: number) {
     if (age < 16) {
       openModal({
         type: 'error',
