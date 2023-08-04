@@ -1,23 +1,21 @@
 'use client'
 import { useState, useRef, createContext, ReactNode, useContext } from 'react'
-import { Modal, ModalComponent, ModalProps, Type } from '@/app/components/Modal'
+import { Modal, ModalRef, ModalProps, ModalType } from '@/app/components/Modal'
 
+interface ModalContextValue {
+  openModal: ({ type, title, text }: ModalProps) => void
+}
 
+export const ModalContext = createContext({} as ModalContextValue)
 interface ModalProviderProps {
   children: ReactNode
 }
 
-interface ModalValue {
-  openModal: ({ type, title, text }: ModalProps) => void
-}
-
-const ModalContext = createContext({} as ModalValue)
-
 export function ModalProvider({ children }: ModalProviderProps) {
-  const [type, setType] = useState<Type>('error')
+  const [type, setType] = useState<ModalType>('error')
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
-  const modalRef = useRef<ModalComponent>(null)
+  const modalRef = useRef<ModalRef>(null)
 
   function openModal({ type, title, text }: ModalProps) {
     setType(type)
@@ -27,7 +25,7 @@ export function ModalProvider({ children }: ModalProviderProps) {
     modalRef.current?.open()
   }
 
-  const value = {
+  const value: ModalContextValue = {
     openModal,
   }
 
