@@ -28,8 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "jest.config.js",
-    "jest.setup.js",
+    "jest.config.mjs",
+    "tests/jest.setup.ts",
     "src/hooks/useModal/UseModal.test"
   ],
   "exclude": ["node_modules"]
