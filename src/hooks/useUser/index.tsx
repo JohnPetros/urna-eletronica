@@ -12,7 +12,7 @@ interface UserProviderProps {
   children: ReactNode
 }
 
-const UserContext = createContext({} as UserContextValue)
+export const UserContext = createContext({} as UserContextValue)
 
 export function UserProvider({ children }: UserProviderProps) {
   const [user, setUser] = useState<User | null>(null)
