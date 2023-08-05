@@ -1,27 +1,44 @@
-import {
-  fireEvent,
-  render,
-  renderHook,
-  screen,
-  waitFor,
-} from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { mocked } from 'jest-mock'
 import { Form } from '.'
-import { ReactNode, useRef } from 'react'
-import { ModalProvider, ModalContext, useModal } from '../../../hooks/useModal'
-import { ModalProps } from '../Modal'
+import { ModalContext } from '../../../hooks/useModal'
+import { UserContext } from '@/hooks/useUser'
+import { Modal } from '../Modal'
+
+function getCurrentDate(daysToAdd = 0) {
+  const currentDate = new Date()
+  currentDate.setDate(currentDate.getDate() + daysToAdd)
+
+  const year = currentDate.getFullYear()
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0')
+  const day = String(currentDate.getDate()).padStart(2, '0')
+
+  const formattedDate = `${year}-${month}-${day}`
+  return formattedDate
+}
+
+jest.mock('next/navigation', () => {
+  return {
+    useRouter() {
+      return {
+        push: jest.fn(),
+      }
+    },
+  }
+})
+
+const mockedRegisterUser = jest.fn()
+const mockedOpenModal = jest.fn()
 
 function renderForm() {
-  const mockedOpenModal = jest.fn()
-
   render(
-    <ModalContext.Provider value={{ openModal: mockedOpenModal }}>
-      <Form />
-    </ModalContext.Provider>
+    <UserContext.Provider value={{ registerUser: mockedRegisterUser } as any}>
+      <ModalContext.Provider value={{ openModal: mockedOpenModal }}>
+        <Modal type="error" title="mocked title" text="mocked text" />
+        <Form />
+      </ModalContext.Provider>
+    </UserContext.Provider>
   )
-
-  return { mockedOpenModal }
 }
 
 describe('Form component', () => {
@@ -39,7 +56,7 @@ describe('Form component', () => {
     expect(button).toBeVisible()
   })
 
-  it('should render error message on empty fields', async () => {
+  it('should render error message when fields are empty', async () => {
     renderForm()
 
     const button = screen.getByText(/enviar/i)
@@ -52,7 +69,7 @@ describe('Form component', () => {
     })
   })
 
-  it('should render error message on name field with less than 3 characters', async () => {
+  it('should render error message when name field has less than 3 characters', async () => {
     renderForm()
 
     const button = screen.getByText(/enviar/i)
@@ -69,7 +86,7 @@ describe('Form component', () => {
     })
   })
 
-  it('should render error message on birthdate field whose value is under the min valid date (1900-01-01)', async () => {
+  it('should render error message when birthdate field whose value is under the min valid date (1900-01-01)', async () => {
     renderForm()
 
     const button = screen.getByText(/enviar/i)
@@ -84,13 +101,13 @@ describe('Form component', () => {
     })
   })
 
-  it('should render error message on birthdate field whose value is over the max valid date (today)', async () => {
+  it('should render error message when birthdate field whose value is over the max valid date (today)', async () => {
     renderForm()
 
     const button = screen.getByText(/enviar/i)
     const inputDate = screen.getByLabelText(/data de nascimento/i)
 
-    fireEvent.change(inputDate, { target: { value: '2100-12-12' } })
+    fireEvent.change(inputDate, { target: { value: getCurrentDate(30) } })
 
     userEvent.click(button)
 
@@ -99,5 +116,101 @@ describe('Form component', () => {
     })
   })
 
+  it('should not render any error message', async () => {
+    renderForm()
 
+    const button = screen.getByText(/enviar/i)
+    const inputName = screen.getByLabelText(/nome/i)
+    const inputDate = screen.getByLabelText(/data de nascimento/i)
+
+    await userEvent.type(inputName, 'joão pedro')
+    fireEvent.change(inputDate, { target: { value: '2000-12-12' } })
+
+    userEvent.click(button)
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText(/por favor, informe um nome válido!/i)
+      ).not.toBeInTheDocument()
+      expect(screen.queryByText(/data inválida!/i)).not.toBeInTheDocument()
+    })
+  })
+
+  it('should call openModal with type equals to error and not call registerUser', async () => {
+    renderForm()
+
+    const button = screen.getByText(/enviar/i)
+    const inputDate = screen.getByLabelText(/data de nascimento/i)
+    const inputName = screen.getByLabelText(/nome/i)
+
+    await userEvent.type(inputName, 'joão')
+    fireEvent.change(inputDate, { target: { value: getCurrentDate() } })
+
+    await userEvent.click(button)
+
+    await waitFor(() => {
+      expect(mockedOpenModal).toHaveBeenCalled()
+      expect(mockedOpenModal).toHaveBeenCalledWith({
+        type: 'error',
+        title: `Opps! Você tem 0 anos e só poderá votar daqui a 16 anos.`,
+        text: 'Até a próxima 👋🏻',
+      })
+
+      expect(mockedRegisterUser).not.toHaveBeenCalled()
+    })
+  })
+
+  it('should call openModal with type equals to warning and not registerUser', async () => {
+    renderForm()
+
+    const button = screen.getByText(/enviar/i)
+    const inputDate = screen.getByLabelText(/data de nascimento/i)
+    const inputName = screen.getByLabelText(/nome/i)
+
+    const days = 365 * 16 // 16 years
+
+    await userEvent.type(inputName, 'joão')
+    fireEvent.change(inputDate, {
+      target: { value: getCurrentDate(-days) },
+    })
+
+    await userEvent.click(button)
+
+    await waitFor(() => {
+      expect(mockedOpenModal).toHaveBeenCalled()
+      expect(mockedOpenModal).toHaveBeenCalledWith({
+        type: 'warning',
+        title: `Você tem 16 anos e seu voto é opcional.`,
+        text: 'Clique em confirmar se quiser realmente votar',
+      })
+
+      expect(mockedRegisterUser).not.toHaveBeenCalled()
+    })
+  })
+
+  it('should call openModal with type equals to success and call registerUser with user name', async () => {
+    renderForm()
+
+    const button = screen.getByText(/enviar/i)
+    const inputDate = screen.getByLabelText(/data de nascimento/i)
+    const inputName = screen.getByLabelText(/nome/i)
+
+    const userName = 'joão'
+    await userEvent.type(inputName, userName)
+    fireEvent.change(inputDate, { target: { value: '2002-01-01' } })
+
+    await userEvent.click(button)
+
+    await waitFor(() => {
+      expect(mockedOpenModal).toHaveBeenCalled()
+      expect(mockedOpenModal).toHaveBeenCalledWith({
+        type: 'success',
+        title: `Você tem 21 anos e está apto a votar.`,
+        text: 'Clique em ok',
+      })
+
+      expect(mockedRegisterUser).toHaveBeenCalled()
+      expect(mockedRegisterUser).toHaveBeenCalledWith({ name: userName })
+    })
+  })
 })
