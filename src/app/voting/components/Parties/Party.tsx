@@ -43,7 +43,7 @@ export function Party({
       className="flex items-center justify-center gap-3 md:gap-6 py-4 text-zinc-100"
       role='tabpanel'
       id={`tab-partido-${abbr}`}
-      aria-aria-labelledby={`tab-${abbr}`}
+      aria-labelledby={`tab-${abbr}`}
     >
       <span className="text-2xl font-bold">{number}</span>
       <div>
