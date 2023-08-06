@@ -156,10 +156,10 @@ export default function Results() {
 
   return (
     <div className="bg-blue-900 h-screen flex flex-col items-center">
-      <h2 className="text-zinc-100 text-2xl mt-6">
+      <h2 className="text-zinc-100 text-2xl mt-3">
         Seus votos, {storagedUser.name}:
       </h2>
-      <dl className="flex flex-col gap-8 mt-6">
+      <dl className="flex flex-col gap-8 mt-10">
         {state.votedCandidates.map((candidate, index) => (
           <Vote
             role={ROLES_TITLES[index]}
