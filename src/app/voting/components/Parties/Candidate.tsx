@@ -6,8 +6,8 @@ import { Variants, motion } from 'framer-motion'
 interface CandidateProps {
   name: string
   images: CandidateImage[]
-  number: number
-  alternates: string[]
+  number: string
+  alternates?: string[]
 }
 
 export function Candidate({
@@ -62,7 +62,7 @@ export function Candidate({
                   </div>
                 </div>
               )}
-              {!isFirst && (
+              {!isFirst && alternates && (
                 <div className=" flex flex-col items-center pointer-events-none">
                   <Image src={url} width={40} height={40} alt={caption} />
                   <small>{alternates[index - 1]}</small>

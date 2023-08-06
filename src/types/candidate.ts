@@ -1,9 +1,9 @@
 import type { Image } from "./Image"
 
 export type Candidate = {
-  number: number
+  number: string
   name: string
   party: string
   images: Image[]
-  alternates: string[]
+  alternates?: string[]
 }
