@@ -8,7 +8,7 @@ import { Vote } from './components/Vote'
 
 import { Variants, motion } from 'framer-motion'
 import { blinkVariants } from '../voting/components/Urn/Display'
-import { getStoragedUser } from '@/functions'
+import { useUser } from '@/hooks/useUser'
 
 const linkVariants: Variants = {
   hidden: {
@@ -24,141 +24,27 @@ const linkVariants: Variants = {
   },
 }
 
-const mock = [
-  {
-    number: '951',
-    name: 'Dia da indepencia do Brasil',
-    party: 'PFolc',
-    alternates: ['Caipora', 'Mãe do Ouro'],
-    images: [
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/951_saci.jpg',
-        caption: 'Senador',
-      },
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/951_caipora.jpg',
-        caption: '1º Suplente',
-        small: true,
-      },
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/951_mae_douro.jpg',
-        caption: '2° Suplente',
-        small: true,
-      },
-    ],
-  },
-  null,
-  {
-    number: '951',
-    name: 'Saci-Pererê',
-    party: 'PFolc',
-    alternates: ['Caipora', 'Mãe do Ouro'],
-    images: [
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/951_saci.jpg',
-        caption: 'Senador',
-      },
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/951_caipora.jpg',
-        caption: '1º Suplente',
-        small: true,
-      },
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/951_mae_douro.jpg',
-        caption: '2° Suplente',
-        small: true,
-      },
-    ],
-  },
-  {
-    number: '951',
-    name: 'Saci-Pererê',
-    party: 'PFolc',
-    alternates: ['Caipora', 'Mãe do Ouro'],
-    images: [
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/951_saci.jpg',
-        caption: 'Senador',
-      },
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/951_caipora.jpg',
-        caption: '1º Suplente',
-        small: true,
-      },
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/951_mae_douro.jpg',
-        caption: '2° Suplente',
-        small: true,
-      },
-    ],
-  },
-  {
-    number: '951',
-    name: 'Saci-Pererê',
-    party: 'PFolc',
-    alternates: ['Caipora', 'Mãe do Ouro'],
-    images: [
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/951_saci.jpg',
-        caption: 'Senador',
-      },
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/951_caipora.jpg',
-        caption: '1º Suplente',
-        small: true,
-      },
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/951_mae_douro.jpg',
-        caption: '2° Suplente',
-        small: true,
-      },
-    ],
-  },
-  {
-    number: '951',
-    name: 'Saci-Pererê',
-    party: 'PFolc',
-    alternates: ['Caipora', 'Mãe do Ouro'],
-    images: [
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/951_saci.jpg',
-        caption: 'Senador',
-      },
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/951_caipora.jpg',
-        caption: '1º Suplente',
-        small: true,
-      },
-      {
-        url: 'https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/951_mae_douro.jpg',
-        caption: '2° Suplente',
-        small: true,
-      },
-    ],
-  },
-]
-
 export default function Results() {
+  const { user, removeUser } = useUser()
   const { state, dispatch } = useUrn()
   const router = useRouter()
-  const storagedUser = getStoragedUser()
 
   function handleExitClick() {
-    localStorage.removeItem('urna-eletronica@user')
+    dispatch({ type: 'resetState' })
+    removeUser()
     router.push('/')
   }
 
-  if (!state.votedCandidates.length || !storagedUser) {
-    dispatch({ type: 'resetState' })
+  if (!state.votedCandidates.length) {
     router.push('/voting')
     return null
   }
 
+  console.log(state.votedCandidates)
+
   return (
     <div className="bg-blue-900 h-screen flex flex-col items-center">
-      <h2 className="text-zinc-100 text-2xl mt-3">
-        Seus votos, {storagedUser.name}:
-      </h2>
+      <h2 className="text-zinc-100 text-2xl mt-3">Seus votos, {user?.name}:</h2>
       <dl className="flex flex-col gap-8 mt-10">
         {state.votedCandidates.map((candidate, index) => (
           <Vote

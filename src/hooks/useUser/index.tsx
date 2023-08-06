@@ -6,6 +6,7 @@ interface UserContextValue {
   user: User | null
   hasUser: boolean
   registerUser: (user: User) => void
+  removeUser: () => void
 }
 
 interface UserProviderProps {
@@ -24,8 +25,13 @@ export function UserProvider({ children }: UserProviderProps) {
     localStorage.setItem('urna-eletronica@user', userData)
   }
 
+  function removeUser() {
+    localStorage.removeItem('urna-eletronica@user')
+    setUser(null)
+  }
+
   return (
-    <UserContext.Provider value={{ user, hasUser, registerUser }}>
+    <UserContext.Provider value={{ user, hasUser, registerUser, removeUser }}>
       {children}
     </UserContext.Provider>
   )
