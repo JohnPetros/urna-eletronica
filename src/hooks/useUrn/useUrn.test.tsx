@@ -134,7 +134,7 @@ describe('useUrn hook', () => {
     })
   })
 
-  it('should open modal when white vote is pressed, pressedNumbers is not empty or choosenCandidate is not null', () => {
+  it('should open modal when white vote is pressed, pressedNumbers is not empty', () => {
     const { mockedOpenModal } = mockUseModal()
 
     mockPressKey('branco', {
