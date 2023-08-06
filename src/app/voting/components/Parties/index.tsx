@@ -2,15 +2,15 @@
 import { useEffect, useState } from 'react'
 import { useUrn } from '@/hooks/useUrn'
 
-import type { Role } from '@/types/role'
-import type { Party as PartyData } from '@/types/party'
-
 import { PARTIES } from '@/constants/parties'
 import { Party } from './Party'
+import * as Tabs from '@radix-ui/react-tabs'
 
 import { AnimatePresence, Variants, motion } from 'framer-motion'
 
-import * as Tabs from '@radix-ui/react-tabs'
+
+import type { Role } from '@/types/role'
+import type { Party as PartyData } from '@/types/party'
 
 interface PartiesProps {
   roles: Role[]
@@ -44,7 +44,7 @@ export function Parties({ roles }: PartiesProps) {
     setActiveParty(null)
   }
 
-  function handlePartyClick(abbr: string, index: number) {
+  function handlePartyClick(abbr: string) {
     const activeRole = roles.find(
       (role) => role.title === state.activeRoleTitle
     )!
@@ -87,16 +87,17 @@ export function Parties({ roles }: PartiesProps) {
               role="tab-list"
               aria-label="Lista de partidos"
             >
-              {PARTIES.map(({ title, abbr }, index) => {
+              {PARTIES.map(({ title, abbr }) => {
                 return (
                   <Tabs.Trigger
                     key={abbr}
                     value={`tab-${abbr}`}
                     role="tab"
+                    data-testid={`tab-${abbr}`}
                     id={`tab-${abbr}`}
                     className=" flex flex-col gap-1 items-center py-7 px-2 font-medium hover:text-white transition-colors duration-200 cursor-pointer"
                     aria-controls={`tab-partido-${abbr}`}
-                    onClick={() => handlePartyClick(abbr, index + 1)}
+                    onClick={() => handlePartyClick(abbr)}
                   >
                     <strong>{abbr}</strong>
                     <small className="uppercase">{title}</small>
