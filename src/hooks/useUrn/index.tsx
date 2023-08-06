@@ -10,7 +10,7 @@ interface RoleProviderProps {
   children: ReactNode
 }
 
-type UrnState = {
+export type UrnState = {
   activeRoleTitle: RoleTitle
   choosenCandidate: Candidate | null
   pressedNumbers: number[]
@@ -20,7 +20,7 @@ type UrnState = {
   isEnd: boolean
 }
 
-type UrnAction =
+export type UrnAction =
   | { type: 'pressKey'; payload: string }
   | { type: 'setCanPressKey'; payload: boolean }
   | { type: 'setChoosenCandidate'; payload: Candidate | null }
@@ -31,7 +31,7 @@ interface UrnContextValue {
   dispatch: (action: UrnAction) => void
 }
 
-const UrnContext = createContext({} as UrnContextValue)
+export const UrnContext = createContext({} as UrnContextValue)
 
 const initialUrnState: UrnState = {
   activeRoleTitle: 'DEPUTADO FEDERAL',
@@ -43,28 +43,32 @@ const initialUrnState: UrnState = {
   isEnd: false,
 }
 
-function UrnReducer(state: UrnState, action: UrnAction): UrnState {
+export function urnReducer(state: UrnState, action: UrnAction): UrnState {
   const { openModal } = useModal()
 
-  function addNumber(newNumber: number) {
+  function addNumber(newNumber: number): Pick<UrnState, 'pressedNumbers'> {
     return { pressedNumbers: [...state.pressedNumbers, newNumber] }
   }
 
-  function removeLastNumber() {
+  function removeLastNumber(): Pick<UrnState, 'pressedNumbers'> {
     return { pressedNumbers: state.pressedNumbers.slice(0, -1) }
   }
 
-  function removeAllNumbers() {
+  function removeAllNumbers(): Pick<UrnState, 'pressedNumbers'> {
     return { pressedNumbers: [] }
   }
 
-  function addVotedCandidate() {
+  function resetPartialState(): Partial<UrnState> {
+    return { ...removeAllNumbers(), canPressKey: true, choosenCandidate: null }
+  }
+
+  function addVotedCandidate(): Pick<UrnState, 'votedCandidates'> {
     return {
       votedCandidates: [...state.votedCandidates, state.choosenCandidate],
     }
   }
 
-  function nextRole() {
+  function nextRole(): Partial<UrnState> {
     const currentIndex = ROLES_TITLES.findIndex(
       (roleTitle) => roleTitle === state.activeRoleTitle
     )
@@ -74,6 +78,8 @@ function UrnReducer(state: UrnState, action: UrnAction): UrnState {
         isEnd: true,
         canPressKey: false,
         isWhiteVote: false,
+        choosenCandidate: null,
+        ...removeAllNumbers(),
       }
     }
 
@@ -81,6 +87,7 @@ function UrnReducer(state: UrnState, action: UrnAction): UrnState {
       activeRoleTitle: ROLES_TITLES[currentIndex + 1],
       canPressKey: true,
       isWhiteVote: false,
+      choosenCandidate: null,
       ...removeAllNumbers(),
     }
   }
@@ -107,11 +114,11 @@ function UrnReducer(state: UrnState, action: UrnAction): UrnState {
       case 'corrige':
         return {
           isWhiteVote: false,
-          ...(state.canPressKey ? removeLastNumber() : removeAllNumbers()),
+          ...(state.canPressKey ? removeLastNumber() : resetPartialState()),
         }
 
       case 'confirma':
-        if (state.canPressKey) {
+        if (state.canPressKey || !state.choosenCandidate) {
           openModal({
             type: 'error',
             title: 'Para votar, o campo de voto deve estar completo.',
@@ -141,7 +148,7 @@ function UrnReducer(state: UrnState, action: UrnAction): UrnState {
 }
 
 export function UrnProvider({ children }: RoleProviderProps) {
-  const [state, dispatch] = useReducer(UrnReducer, initialUrnState)
+  const [state, dispatch] = useReducer(urnReducer, initialUrnState)
 
   return (
     <UrnContext.Provider value={{ state, dispatch }}>
