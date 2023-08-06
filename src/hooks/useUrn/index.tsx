@@ -118,7 +118,7 @@ export function urnReducer(state: UrnState, action: UrnAction): UrnState {
         }
 
       case 'confirma':
-        if (state.canPressKey || !state.choosenCandidate) {
+        if (state.canPressKey) {
           openModal({
             type: 'error',
             title: 'Para votar, o campo de voto deve estar completo.',
