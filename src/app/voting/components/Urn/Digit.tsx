@@ -1,6 +1,6 @@
 'use client'
 
-import { Variants, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { blinkVariants } from './Display'
 
 interface DigitProps {
@@ -10,12 +10,13 @@ interface DigitProps {
 
 export function Digit({ number, isActive }: DigitProps) {
   return (
-    <motion.span
+    <motion.div
+      role="textbox"
       variants={blinkVariants}
       animate={isActive ? 'blink' : 'default'}
-      className="grid place-content-center border-2 border-zinc-900 w-8 h-10 font-extrabold text-lg peer "
+      className="grid place-content-center border-2 border-zinc-900 w-8 h-10 font-extrabold text-lg peer"
     >
       {number}
-    </motion.span>
+    </motion.div>
   )
 }
