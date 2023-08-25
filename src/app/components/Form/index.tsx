@@ -1,12 +1,14 @@
 'use client'
+import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
-import { useModal } from '@/hooks/useModal'
+import { useUser } from '@/hooks/useUser'
+import { useRouter } from 'next/navigation'
+import { OpenModalParams, useModal } from '@/hooks/useModal'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import { Input } from './Input'
-import { useUser } from '@/hooks/useUser'
-import { useRef } from 'react'
 
 const formSchema = z.object({
   name: z
@@ -27,17 +29,38 @@ export type FormFields = z.infer<typeof formSchema>
 
 export function Form() {
   const { registerUser } = useUser()
-  const { openModal } = useModal()
+  const { state, dispatch } = useModal()
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<FormFields>({
     resolver: zodResolver(formSchema),
   })
+
+  const { hasUser } = useUser()
+  const router = useRouter()
+
   const buttonRef = useRef<HTMLButtonElement>(null)
 
-   function handleAge(age: number) {
+  function handleModalButtonClick() {
+    if (hasUser) {
+      router.push('/voting')
+    }
+
+    dispatch({ type: 'close' })
+  }
+
+  function setModalCallback(callback: VoidFunction) {
+    dispatch({ type: 'setCallback', payload: callback })
+  }
+
+  function openModal({ type, title, text }: OpenModalParams) {
+    dispatch({ type: 'open', payload: { type, title, text } })
+  }
+
+  function handleAge(age: number) {
     if (age < 16) {
       openModal({
         type: 'error',
@@ -76,10 +99,24 @@ export function Form() {
 
     if (isValidUser) {
       registerUser({ name: data.name })
-    } else {
+    }
+
+    setModalCallback(() => {
+      if (isValidUser) {
+        router.push('/voting')
+      }
+
+      dispatch({ type: 'close' })
+    })
+  }
+
+  useEffect(() => {
+    const formValues = getValues(['name', 'birthdate'])
+
+    if (!state.isOpen && formValues.every((value) => !!value)) {
       buttonRef.current?.focus()
     }
-  }
+  }, [state.isOpen])
 
   return (
     <form
