@@ -21,7 +21,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           className="border border-transparent mt-2 border-zinc-900 focus:border-blue-900 p-2 w-full transition-colors duration-200 rounded"
           {...rest}
         />
-        {error && <strong className="text-red-600 font-normal">{error}</strong>}
+        {error && <strong role="alert" className="text-red-600 font-normal">{error}</strong>}
       </div>
     )
   }

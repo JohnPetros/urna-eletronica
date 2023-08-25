@@ -39,18 +39,10 @@ export function Form() {
     resolver: zodResolver(formSchema),
   })
 
-  const { hasUser } = useUser()
   const router = useRouter()
 
   const buttonRef = useRef<HTMLButtonElement>(null)
 
-  function handleModalButtonClick() {
-    if (hasUser) {
-      router.push('/voting')
-    }
-
-    dispatch({ type: 'close' })
-  }
 
   function setModalCallback(callback: VoidFunction) {
     dispatch({ type: 'setCallback', payload: callback })
