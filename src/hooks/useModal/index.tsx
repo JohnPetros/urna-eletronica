@@ -1,9 +1,46 @@
 'use client'
-import { useState, useRef, createContext, ReactNode, useContext } from 'react'
-import { Modal, ModalRef, ModalProps, ModalType } from '@/app/components/Modal'
+import {
+  useState,
+  createContext,
+  ReactNode,
+  useContext,
+  useReducer,
+} from 'react'
+import { Modal, ModalType } from '@/app/components/Modal'
+
+export type OpenModalParams = {
+  type: ModalType
+  title: string
+  text: string
+}
+
+type ModalState = {
+  type: ModalType
+  title: string
+  text: string
+  isOpen: boolean
+  callback: VoidFunction
+}
+
+type ModalAction =
+  | {
+      type: 'open'
+      payload: OpenModalParams
+    }
+  | { type: 'close' }
+  | { type: 'setCallback'; payload: VoidFunction }
 
 interface ModalContextValue {
-  openModal: ({ type, title, text }: ModalProps) => void
+  state: ModalState
+  dispatch: (action: ModalAction) => void
+}
+
+const initialUrnState: ModalState = {
+  type: 'error',
+  title: '',
+  text: '',
+  isOpen: false,
+  callback: () => {},
 }
 
 export const ModalContext = createContext({} as ModalContextValue)
@@ -11,27 +48,46 @@ interface ModalProviderProps {
   children: ReactNode
 }
 
+function modalReducer(state: ModalState, action: ModalAction): ModalState {
+  switch (action.type) {
+    case 'open':
+      return {
+        ...state,
+        type: action.payload.type,
+        title: action.payload.title,
+        text: action.payload.text,
+        isOpen: true,
+      }
+    case 'close':
+      return {
+        ...state,
+        type: 'error',
+        title: '',
+        text: '',
+        isOpen: false,
+      }
+    case 'setCallback':
+      return {
+        ...state,
+        callback: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
 export function ModalProvider({ children }: ModalProviderProps) {
-  const [type, setType] = useState<ModalType>('error')
-  const [title, setTitle] = useState('')
-  const [text, setText] = useState('')
-  const modalRef = useRef<ModalRef>(null)
-
-  function openModal({ type, title, text }: ModalProps) {
-    setType(type)
-    setTitle(title)
-    setText(text)
-
-    modalRef.current?.open()
-  }
-
-  const value: ModalContextValue = {
-    openModal,
-  }
+  const [state, dispatch] = useReducer(modalReducer, initialUrnState)
 
   return (
-    <ModalContext.Provider value={value}>
-      <Modal ref={modalRef} type={type} title={title} text={text} />
+    <ModalContext.Provider value={{ state, dispatch }}>
+      <Modal
+        isOpen={state.isOpen}
+        type={state.type}
+        title={state.title}
+        text={state.text}
+        onClick={state.callback}
+      />
       {children}
     </ModalContext.Provider>
   )
