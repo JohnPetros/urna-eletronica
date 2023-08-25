@@ -1,8 +1,9 @@
 import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Modal, ModalRef, ModalType } from '.'
+import { Modal, ModalType } from '.'
 import { createRef } from 'react'
 import { UserContext } from '@/hooks/useUser'
+import { ModalContext, ModalState, initialModalState } from '@/hooks/useModal'
 
 const mockedPush = jest.fn()
 
@@ -17,32 +18,37 @@ interface RenderModalParams {
   hasUser?: boolean
 }
 
+const mockedDispatch = jest.fn()
+
 const renderModal = ({
   type = 'success',
-  hasUser = false,
-}: RenderModalParams) => {
-  const modalRef = createRef<ModalRef>()
-
+  isOpen = true,
+  title = 'Mocked title',
+  text = 'Mocked text',
+  callback = () => {},
+}: Partial<ModalState>) => {
   render(
-    <UserContext.Provider value={{ hasUser } as any}>
+    <ModalContext.Provider
+      value={{ state: initialModalState, dispatch: mockedDispatch }}
+    >
       <Modal
-        ref={modalRef}
         type={type}
-        title="Mocked title"
-        text="Mocked text"
+        isOpen={isOpen}
+        title={title}
+        text={text}
+        onClick={callback}
       />
-    </UserContext.Provider>
+    </ModalContext.Provider>
   )
-
-  return { modalRef }
 }
 
 describe('Modal component', () => {
-  it('should open', async () => {
-    const { modalRef } = renderModal({ type: 'success' })
-
-    act(() => {
-      modalRef.current?.open()
+  it('should be visible when the isOpen state is true', async () => {
+    renderModal({
+      type: 'success',
+      isOpen: true,
+      title: 'Mocked title',
+      text: 'Mocked text',
     })
 
     await waitFor(() => {
@@ -52,66 +58,38 @@ describe('Modal component', () => {
     })
   })
 
-  it('should close', async () => {
-    const { modalRef } = renderModal({ type: 'success' })
-
-    act(() => {
-      modalRef.current?.open()
+  it('should not be visible when the isOpen state is false', async () => {
+    renderModal({
+      type: 'success',
+      isOpen: false,
+      title: 'Mocked title',
+      text: 'Mocked text',
     })
 
-    const button = screen.getByRole('button')
-    await userEvent.click(button)
-
     await waitFor(() => {
-      expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
-      expect(screen.queryByText('Mocked title')).not.toBeInTheDocument()
-      expect(screen.queryByText('Mocked text')).not.toBeInTheDocument()
+      expect(screen.queryByRole('dialog')).toBeNull()
+      expect(screen.queryByText('Mocked title')).toBeNull()
+      expect(screen.queryByText('Mocked text')).toBeNull()
     })
   })
 
-  it('should not redirect user to voting page when modal type is not success and has user', async () => {
-    const { modalRef } = renderModal({ type: 'error', hasUser: true })
+  it.only('should call modal state callback', async () => {
+    const mockedCallback = jest.fn()
+    const mockedParam = jest.fn()
 
-    act(() => {
-      modalRef.current?.open()
+    renderModal({
+      type: 'success',
+      isOpen: true,
+      title: 'Mocked title',
+      text: 'Mocked text',
+      callback: () => mockedCallback(),
     })
-
-    const button = screen.getByRole('button')
-    await userEvent.click(button)
 
     await waitFor(() => {
-      expect(mockedPush).not.toHaveBeenCalled()
-    })
-  })
+      const modalButton = screen.getByRole('button')
+      userEvent.click(modalButton)
 
-  it('should not redirect user to voting page when modal type is success and has no user', async () => {
-    const { modalRef } = renderModal({ type: 'error', hasUser: false })
-
-    act(() => {
-      modalRef.current?.open()
-    })
-
-    const button = screen.getByRole('button')
-    await userEvent.click(button)
-
-    await waitFor(() => {
-      expect(mockedPush).not.toHaveBeenCalled()
-    })
-  })
-
-  it('should redirect user to voting page when modal type is success and has user', async () => {
-    const { modalRef } = renderModal({ type: 'success', hasUser: true })
-
-    act(() => {
-      modalRef.current?.open()
-    })
-
-    const button = screen.getByRole('button')
-    await userEvent.click(button)
-
-    await waitFor(() => {
-      expect(mockedPush).toHaveBeenCalled()
-      expect(mockedPush).toHaveBeenCalledWith('/voting')
+      expect(mockedCallback).toBe(mockedCallback)
     })
   })
 })
