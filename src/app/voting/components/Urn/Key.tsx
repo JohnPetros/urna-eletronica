@@ -2,15 +2,23 @@
 import { twMerge } from 'tailwind-merge'
 import { Variants, motion } from 'framer-motion'
 import { useUrn } from '@/hooks/useUrn'
+import { useRef } from 'react'
 
 interface KeyProps {
   value: string
   isAction?: boolean
   className?: string
+  ariaLabel?: string
 }
 
-export function Key({ value, isAction = false, className }: KeyProps) {
+export function Key({
+  value,
+  isAction = false,
+  className,
+  ariaLabel,
+}: KeyProps) {
   const { state, dispatch } = useUrn()
+  const keyRef = useRef<HTMLButtonElement>(null)
   const isEnable = state.canPressKey || isAction
 
   const keyVariants: Variants = {
@@ -26,11 +34,12 @@ export function Key({ value, isAction = false, className }: KeyProps) {
       }.wav`
     ).play()
 
-    dispatch({ type: 'pressKey', payload: value.toLowerCase() })
+    dispatch({ type: 'pressKey', payload: keyRef })
   }
 
   return (
     <motion.button
+      ref={keyRef}
       onClick={() => {
         if (isEnable) {
           handleKeyPress()
@@ -43,6 +52,7 @@ export function Key({ value, isAction = false, className }: KeyProps) {
         className,
         isEnable ? 'cursor-pointer' : 'cursor-not-allowed'
       )}
+      aria-label={ariaLabel}
     >
       {value}
     </motion.button>
