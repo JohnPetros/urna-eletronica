@@ -9,8 +9,8 @@ const roboto = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Urna eletrônica',
-  description: 'Simulador de urna eletrônica eleitoral',
+  title: 'Simulador de urna eletrônica',
+  description: 'Simulador de uma urna eletrônica eleitoral',  
 }
 
 export default function RootLayout({
