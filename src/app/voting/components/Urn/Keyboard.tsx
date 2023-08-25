@@ -35,15 +35,18 @@ export function Keyboard() {
             className="bg-zinc-100 text-zinc-800 w-[30%] md:w-auto md:px-2 py-2 text-sm"
             value="Branco"
             isAction={true}
+            ariaLabel="Votar em branco"
           />
           <Key
             className="bg-orange-600 text-zinc-950 w-[30%] md:w-auto md:px-2 py-2 text-sm"
             value="Corrige"
             isAction={true}
+            ariaLabel="Corrigir número"
           />
           <Key
             className="bg-green-600 text-zinc-950 w-[30%] md:w-auto md:px-2 py-3 text-sm"
             value="Confirma"
+            ariaLabel="Confirmar voto"
             isAction={true}
           />
         </div>
