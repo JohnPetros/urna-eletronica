@@ -2,9 +2,12 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { Form } from '.'
-import { ModalContext } from '../../../hooks/useModal'
+import {
+  ModalContext,
+  ModalState,
+  initialModalState,
+} from '../../../hooks/useModal'
 import { UserContext } from '@/hooks/useUser'
-import { Modal } from '../Modal'
 import { getCurrentDate } from '@/functions'
 
 jest.mock('next/navigation', () => {
@@ -18,13 +21,15 @@ jest.mock('next/navigation', () => {
 })
 
 const mockedRegisterUser = jest.fn()
-const mockedOpenModal = jest.fn()
+const mockedDispatch = jest.fn()
 
 function renderForm() {
   render(
     <UserContext.Provider value={{ registerUser: mockedRegisterUser } as any}>
-      <ModalContext.Provider value={{ openModal: mockedOpenModal }}>
-        <Modal type="error" title="mocked title" text="mocked text" />
+      <ModalContext.Provider
+        value={{ state: initialModalState, dispatch: mockedDispatch }}
+      >
+        {/* <Modal type="error" title="mocked title" text="mocked text" /> */}
         <Form />
       </ModalContext.Provider>
     </UserContext.Provider>
@@ -139,11 +144,14 @@ describe('Form component', () => {
     await userEvent.click(button)
 
     await waitFor(() => {
-      expect(mockedOpenModal).toHaveBeenCalled()
-      expect(mockedOpenModal).toHaveBeenCalledWith({
-        type: 'error',
-        title: `Opps! Você tem 0 anos e só poderá votar daqui a 16 anos.`,
-        text: 'Até a próxima 👋🏻',
+      expect(mockedDispatch).toHaveBeenCalled()
+      expect(mockedDispatch).toHaveBeenCalledWith({
+        type: 'open',
+        payload: {
+          text: 'Até a próxima 👋🏻',
+          title: 'Opps! Você tem 0 anos e só poderá votar daqui a 16 anos.',
+          type: 'error',
+        },
       })
 
       expect(mockedRegisterUser).not.toHaveBeenCalled()
@@ -167,11 +175,14 @@ describe('Form component', () => {
     await userEvent.click(button)
 
     await waitFor(() => {
-      expect(mockedOpenModal).toHaveBeenCalled()
-      expect(mockedOpenModal).toHaveBeenCalledWith({
-        type: 'warning',
-        title: `Você tem 16 anos e seu voto é opcional.`,
-        text: 'Clique em confirmar se quiser realmente votar',
+      expect(mockedDispatch).toHaveBeenCalled()
+      expect(mockedDispatch).toHaveBeenCalledWith({
+        type: 'open',
+        payload: {
+          type: 'warning',
+          title: `Você tem 16 anos e seu voto é opcional.`,
+          text: 'Clique em confirmar se quiser realmente votar',
+        },
       })
 
       expect(mockedRegisterUser).not.toHaveBeenCalled()
@@ -192,11 +203,13 @@ describe('Form component', () => {
     await userEvent.click(button)
 
     await waitFor(() => {
-      expect(mockedOpenModal).toHaveBeenCalled()
-      expect(mockedOpenModal).toHaveBeenCalledWith({
-        type: 'success',
-        title: `Você tem 21 anos e está apto a votar.`,
-        text: 'Clique em ok',
+      expect(mockedDispatch).toHaveBeenCalledWith({
+        type: 'open',
+        payload: {
+          type: 'success',
+          title: `Você tem 21 anos e está apto a votar.`,
+          text: 'Clique em ok',
+        },
       })
 
       expect(mockedRegisterUser).toHaveBeenCalled()
