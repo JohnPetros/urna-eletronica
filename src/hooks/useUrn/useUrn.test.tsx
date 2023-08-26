@@ -113,7 +113,7 @@ describe('useUrn hook', () => {
     })
   })
 
-  it.only('should not add alpha string to pressedNumbers state', () => {
+  it('should not add alpha string to pressedNumbers state', () => {
     mockUseModal()
 
     const pressedKey = 'abc'
@@ -148,11 +148,6 @@ describe('useUrn hook', () => {
       pressedNumbers: [1, 2, 3, 4],
       choosenCandidate: null,
     })
-
-    const setModalCallback = {
-      type: 'setCallback',
-      payload: () => {},
-    }
 
     expect(mockedModalDispatch).toHaveBeenCalledTimes(2)
     expect(mockedModalDispatch).toHaveBeenCalledWith({
