@@ -1,5 +1,11 @@
-import { ReactNode, createContext, useContext, useReducer } from 'react'
-import { useModal } from '../useModal'
+import {
+  ReactNode,
+  RefObject,
+  createContext,
+  useContext,
+  useReducer,
+} from 'react'
+import { OpenModalParams, useModal } from '../useModal'
 
 import { ROLES_TITLES } from '@/constants/roles-titles'
 import { Candidate } from '@/types/candidate'
@@ -21,7 +27,10 @@ export type UrnState = {
 }
 
 export type UrnAction =
-  | { type: 'pressKey'; payload: string }
+  | {
+      type: 'pressKey'
+      payload: { keyValue: string; keyRef: RefObject<HTMLButtonElement> }
+    }
   | { type: 'setCanPressKey'; payload: boolean }
   | { type: 'setChoosenCandidate'; payload: Candidate | null }
   | { type: 'resetState' }
@@ -44,7 +53,25 @@ const initialUrnState: UrnState = {
 }
 
 export function urnReducer(state: UrnState, action: UrnAction): UrnState {
-  const { openModal } = useModal()
+  const { dispatch } = useModal()
+
+  function openModal({ type, title, text }: OpenModalParams) {
+    dispatch({ type: 'open', payload: { type, title, text } })
+  }
+
+  function closeModal() {
+    dispatch({ type: 'close' })
+  }
+
+  function setModalCallback(keyRef: RefObject<HTMLButtonElement>) {
+    dispatch({
+      type: 'setCallback',
+      payload: () => {
+        closeModal()
+        keyRef.current?.focus()
+      },
+    })
+  }
 
   function addNumber(newNumber: number): Pick<UrnState, 'pressedNumbers'> {
     return { pressedNumbers: [...state.pressedNumbers, newNumber] }
@@ -92,14 +119,15 @@ export function urnReducer(state: UrnState, action: UrnAction): UrnState {
     }
   }
 
-  function handleKeyPress(key: string) {
-    const isNumber = !!Number(key)
+  function handleKeyPress(keyValue: string, keyRef: RefObject<HTMLButtonElement>) {
 
-    if (isNumber || key === '0') {
-      return addNumber(Number(key))
+    const isNumber = !!Number(keyValue)
+
+    if (isNumber || keyValue === '0') {
+      return addNumber(Number(keyValue))
     }
 
-    switch (key) {
+    switch (keyValue?.toLowerCase()) {
       case 'branco':
         if (state.pressedNumbers.length || state.choosenCandidate) {
           openModal({
@@ -108,6 +136,7 @@ export function urnReducer(state: UrnState, action: UrnAction): UrnState {
             text: 'Aperte CORRIGE para apagar o campo de voto.',
           })
 
+          setModalCallback(keyRef)
           return
         }
         return { isWhiteVote: true, canPressKey: false }
@@ -135,7 +164,10 @@ export function urnReducer(state: UrnState, action: UrnAction): UrnState {
 
   switch (action.type) {
     case 'pressKey':
-      return { ...state, ...handleKeyPress(action.payload) }
+      return {
+        ...state,
+        ...handleKeyPress(action.payload.keyValue, action.payload.keyRef),
+      }
     case 'setChoosenCandidate':
       return { ...state, choosenCandidate: action.payload }
     case 'setCanPressKey':
