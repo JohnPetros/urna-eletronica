@@ -14,7 +14,7 @@ export type OpenModalParams = {
   text: string
 }
 
-type ModalState = {
+export type ModalState = {
   type: ModalType
   title: string
   text: string
@@ -22,7 +22,7 @@ type ModalState = {
   callback: VoidFunction
 }
 
-type ModalAction =
+export type ModalAction =
   | {
       type: 'open'
       payload: OpenModalParams
@@ -35,7 +35,7 @@ interface ModalContextValue {
   dispatch: (action: ModalAction) => void
 }
 
-const initialUrnState: ModalState = {
+export const initialModalState: ModalState = {
   type: 'error',
   title: '',
   text: '',
@@ -77,7 +77,7 @@ function modalReducer(state: ModalState, action: ModalAction): ModalState {
 }
 
 export function ModalProvider({ children }: ModalProviderProps) {
-  const [state, dispatch] = useReducer(modalReducer, initialUrnState)
+  const [state, dispatch] = useReducer(modalReducer, initialModalState)
 
   return (
     <ModalContext.Provider value={{ state, dispatch }}>
