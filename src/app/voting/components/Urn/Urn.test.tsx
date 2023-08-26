@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { RoleTitle, UrnContext, UrnState } from '@/hooks/useUrn'
 import { Role } from '@/types/role'
 import { Urn } from '.'
+import { createRef } from 'react'
 
 const mockedRoles = [
   {
@@ -90,17 +91,17 @@ function mockPressKey(key: string) {
   userEvent.click(keyButton)
 }
 
-it('should display active role title', async () => {
-  const activeRoleTitle: RoleTitle = 'PRESIDENTE'
-
-  renderUrn({ activeRoleTitle })
-
-  await waitFor(() => {
-    expect(screen.getByText(activeRoleTitle)).toBeVisible()
-  })
-})
-
 describe('Urn component', () => {
+  it('should display active role title', async () => {
+    const activeRoleTitle: RoleTitle = 'PRESIDENTE'
+
+    renderUrn({ activeRoleTitle })
+
+    await waitFor(() => {
+      expect(screen.getByText(activeRoleTitle)).toBeVisible()
+    })
+  })
+
   it('should display choosen candidate', async () => {
     const choosenCandidate = {
       number: '91',
@@ -148,7 +149,7 @@ describe('Urn component', () => {
     await waitFor(() => {
       expect(mockedDispatch).toHaveBeenCalledWith({
         type: 'pressKey',
-        payload: 'confirma',
+        payload: expect.objectContaining({ keyValue: 'Confirma' }),
       })
     })
   })
@@ -163,7 +164,7 @@ describe('Urn component', () => {
     await waitFor(() => {
       expect(mockedDispatch).not.toHaveBeenCalledWith({
         type: 'pressKey',
-        payload: '9',
+        payload: expect.objectContaining({ keyValue: '9' }),
       })
     })
   })
