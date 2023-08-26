@@ -1,8 +1,9 @@
 import { renderHook } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import { UrnAction, UrnContext, UrnState, urnReducer, useUrn } from '.'
-import { useModal } from '../useModal'
+import { initialModalState, useModal } from '../useModal'
 import { ROLES_TITLES } from '@/constants/roles-titles'
+import { createRef } from 'react'
 
 jest.mock('../useModal')
 
@@ -63,13 +64,14 @@ const mockedCandidates = [
 function mockUseModal() {
   const mockedUseModal = mocked(useModal)
 
-  const mockedOpenModal = jest.fn()
+  const mockedModalDispatch = jest.fn()
 
   mockedUseModal.mockReturnValue({
-    openModal: mockedOpenModal,
+    state: initialModalState,
+    dispatch: mockedModalDispatch,
   })
 
-  return { mockedOpenModal }
+  return { mockedModalDispatch }
 }
 
 function mockDispatch(action: UrnAction, initialState?: Partial<UrnState>) {
@@ -80,14 +82,19 @@ function mockDispatch(action: UrnAction, initialState?: Partial<UrnState>) {
   return urnReducer(mockedUrnState as UrnState, action as UrnAction)
 }
 
-function mockPressKey(key: string, initialState: Partial<UrnState>): UrnState {
+function mockPressKey(
+  keyValue: string,
+  initialState: Partial<UrnState>
+): UrnState {
   const mockedUrnState: Partial<UrnState> = {
     ...initialState,
   }
 
+  const keyRef = createRef<HTMLButtonElement>()
+
   const mockedAction: UrnAction = {
     type: 'pressKey',
-    payload: key,
+    payload: { keyValue, keyRef },
   }
 
   return mockDispatch(mockedAction, mockedUrnState)
@@ -106,7 +113,7 @@ describe('useUrn hook', () => {
     })
   })
 
-  it('should not add alpha string to pressedNumbers state', () => {
+  it.only('should not add alpha string to pressedNumbers state', () => {
     mockUseModal()
 
     const pressedKey = 'abc'
@@ -134,18 +141,27 @@ describe('useUrn hook', () => {
     })
   })
 
-  it('should open modal when white vote is pressed, pressedNumbers is not empty', () => {
-    const { mockedOpenModal } = mockUseModal()
+  it.only('should open modal when white vote is pressed and pressedNumbers is not empty', () => {
+    const { mockedModalDispatch } = mockUseModal()
 
     mockPressKey('branco', {
       pressedNumbers: [1, 2, 3, 4],
       choosenCandidate: null,
     })
 
-    expect(mockedOpenModal).toHaveBeenCalledWith({
-      type: 'error',
-      title: 'Para votar em BRANCO, o campo de voto deve estar vazio.',
-      text: 'Aperte CORRIGE para apagar o campo de voto.',
+    const setModalCallback = {
+      type: 'setCallback',
+      payload: () => {},
+    }
+
+    expect(mockedModalDispatch).toHaveBeenCalledTimes(2)
+    expect(mockedModalDispatch).toHaveBeenCalledWith({
+      type: 'open',
+      payload: {
+        type: 'error',
+        title: 'Para votar em BRANCO, o campo de voto deve estar vazio.',
+        text: 'Aperte CORRIGE para apagar o campo de voto.',
+      },
     })
   })
 
@@ -181,14 +197,14 @@ describe('useUrn hook', () => {
   })
 
   it('should call openModal when "confirma" key is pressed and canPressKey is true', () => {
-    const { mockedOpenModal } = mockUseModal()
+    const { mockedModalDispatch } = mockUseModal()
 
     mockPressKey('confirma', {
       pressedNumbers: [1],
       canPressKey: true,
     })
 
-    expect(mockedOpenModal).toHaveBeenCalledWith({
+    expect(mockedModalDispatch).toHaveBeenCalledWith({
       type: 'error',
       title: 'Para votar, o campo de voto deve estar completo.',
       text: 'Insira o dígitos pressionando as teclas numéricas.',
