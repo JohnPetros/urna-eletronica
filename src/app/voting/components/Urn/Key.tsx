@@ -48,7 +48,7 @@ export function Key({
       variants={keyVariants}
       whileTap={isEnable ? 'tap' : ''}
       className={twMerge(
-        'text-zinc-100 rounded-lg border-b-2 border-zinc-400 uppercase font-bold',
+        'text-zinc-100 rounded-lg border-b-2 border-zinc-400 uppercase font-bold w-full h-12',
         className,
         isEnable ? 'cursor-pointer' : 'cursor-not-allowed'
       )}
