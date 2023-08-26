@@ -34,7 +34,7 @@ export function Key({
       }.wav`
     ).play()
 
-    dispatch({ type: 'pressKey', payload: keyRef })
+    dispatch({ type: 'pressKey', payload: { keyValue: value, keyRef } })
   }
 
   return (
