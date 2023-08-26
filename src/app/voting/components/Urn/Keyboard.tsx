@@ -17,20 +17,13 @@ export function Keyboard() {
           Justiça eleitoral
         </h2>
       </header>
-      <div className="grid grid-cols-3 items-center gap-2 bg-zinc-600 p-6">
+      <div className="grid grid-cols-[repeat(3,minmax(80px,140px))] w-full items-center justify-center gap-2 bg-zinc-600 p-6">
         {keys.map((key) => (
-          <div key={key} className="flex md:flex items-center justify-center">
-            <Key
-              className="bg-zinc-800 w-full md:px-9 py-2"
-              value={String(key)}
-            />
-          </div>
+          <Key className="bg-zinc-800 w-full" value={String(key)} />
         ))}
-        <div className="col-span-3 flex md:flex items-center justify-center">
-          <Key className="bg-zinc-800 px-16 md:px-9 py-2" value="0" />
-        </div>
+          <Key className="bg-zinc-800 col-start-2 col-end-3" value="0" />
 
-        <div className="col-span-3 flex items-center justify-between mt-3">
+        <div className="col-span-3 flex items-center justify-center gap-2 mt-3">
           <Key
             className="bg-zinc-100 text-zinc-800 w-[30%] md:w-auto md:px-2 py-2 text-sm"
             value="Branco"
