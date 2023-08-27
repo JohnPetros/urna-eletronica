@@ -51,12 +51,12 @@ export function Candidate({
               variants={imageVarians}
               initial="initial"
               whileHover="hover"
-              className='text-sm w-28'
+              className='text-sm w-36'
             >
               {isFirst && (
                 <div className="flex flex-col items-center">
                   <Image src={url} width={72} height={64} alt={caption} />
-                  <div className="flex flex-col text-center">
+                  <div className="flex flex-col text-center gap-1 mt-1">
                     <small className="text-sm">{name}</small>
                     <strong className="text-zinc-100">{number}</strong>
                   </div>
