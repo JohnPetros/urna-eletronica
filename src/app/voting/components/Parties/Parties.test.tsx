@@ -77,7 +77,7 @@ function renderParties() {
   )
 }
 
-describe('Pary component', () => {
+describe('Party component', () => {
   it.each(PARTIES)(
     'should display $title party as a tab button',
     async ({ title, abbr }) => {
@@ -103,13 +103,16 @@ describe('Pary component', () => {
     })
   })
 
-  it('should not display candidates when tab close button is clicked', async () => {
+  it('should not display candidates when close tab button is clicked', async () => {
     renderParties()
 
     const tabTrigger = screen.getByTestId('tab-PEsp')
     await userEvent.click(tabTrigger)
 
-    const tabCloseButton = screen.getByText('×')
+    const tabCloseButton = screen.getAllByRole('button', {
+      name: 'Parar de ver os candidatos desse partido',
+    })[0]
+
     await userEvent.click(tabCloseButton)
 
     await waitFor(() => {
