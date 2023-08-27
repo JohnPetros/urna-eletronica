@@ -132,8 +132,6 @@ describe('Results page', () => {
   it('should display user name', async () => {
     renderResultsPage(mockedVotedCandidates)
 
-    screen.debug()
-
     await waitFor(() => {
       expect(screen.getByText(`Seus votos, ${mockedUser.name}:`)).toBeVisible()
     })
@@ -141,8 +139,6 @@ describe('Results page', () => {
 
   it.each(ROLES_TITLES)('should display each role title', async (roleTitle) => {
     renderResultsPage(mockedVotedCandidates)
-
-    screen.debug()
 
     await waitFor(() => {
       expect(screen.getByText(regex(roleTitle))).toBeVisible()
