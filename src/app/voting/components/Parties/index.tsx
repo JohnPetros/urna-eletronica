@@ -1,4 +1,5 @@
 'use client'
+
 import { useEffect, useState } from 'react'
 import { useUrn } from '@/hooks/useUrn'
 
@@ -111,7 +112,10 @@ export function Parties({ roles }: PartiesProps) {
       orientation={isMobile ? 'vertical' : 'horizontal'}
     >
       {activeParty && (
-        <Tabs.Content value={`tab-${activeParty.abbr}`} className='md:w-full md:h-full'>
+        <Tabs.Content
+          value={`tab-${activeParty.abbr}`}
+          className="md:w-full md:h-full"
+        >
           <Party
             data={activeParty}
             onPartyClose={closeParty}

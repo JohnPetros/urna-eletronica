@@ -1,7 +1,10 @@
-import type { Image as CandidateImage } from '@/types/Image'
+'use client'
+
 import Image from 'next/image'
 
 import { Variants, motion } from 'framer-motion'
+
+import type { Image as CandidateImage } from '@/types/Image'
 
 interface CandidateProps {
   name: string
@@ -55,14 +58,7 @@ export function Candidate({
             >
               {isFirst && (
                 <div className="flex flex-col items-center">
-                  <Image
-                    src={url}
-                    width={72}
-                    height={64}
-                    alt={caption}
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
-                  />
+                  <Image src={url} width={72} height={64} alt={caption} />
                   <div className="flex flex-col text-center gap-1 mt-1">
                     <small className="text-sm">{name}</small>
                     <strong className="text-zinc-100">{number}</strong>
@@ -71,14 +67,7 @@ export function Candidate({
               )}
               {!isFirst && alternates && (
                 <div className=" flex flex-col items-center pointer-events-none">
-                  <Image
-                    src={url}
-                    width={40}
-                    height={40}
-                    alt={caption}
-                    placeholder="blur"
-                      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
-                  />
+                  <Image src={url} width={40} height={40} alt={caption} />
                   <small>{alternates[index - 1]}</small>
                   <strong className="text-zinc-100 text-[10px]">
                     {caption}

@@ -1,4 +1,5 @@
 'use client'
+
 import { useUrn } from '@/hooks/useUrn'
 import { Candidate } from './Candidate'
 import type { Party } from '@/types/party'
@@ -77,7 +78,11 @@ export function Party({
         </div>
       </div>
 
-      <div data-testid="party-tab-overlay" className="block h-full w-fullmd:hidden" onClick={onTabListClose}></div>
+      <div
+        data-testid="party-tab-overlay"
+        className="block h-full w-fullmd:hidden"
+        onClick={onTabListClose}
+      ></div>
     </motion.div>
   )
 }

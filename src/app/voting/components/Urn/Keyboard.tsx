@@ -21,7 +21,7 @@ export function Keyboard() {
         {keys.map((key) => (
           <Key key={key} className="bg-zinc-800 w-full" value={String(key)} />
         ))}
-          <Key className="bg-zinc-800 col-start-2 col-end-3" value="0" />
+        <Key className="bg-zinc-800 col-start-2 col-end-3" value="0" />
 
         <div className="col-span-3 grid grid-cols-3  gap-2 mt-3">
           <Key

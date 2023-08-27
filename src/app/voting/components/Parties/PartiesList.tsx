@@ -1,3 +1,5 @@
+'use client'
+
 import { Party } from '@/types/party'
 import * as Tabs from '@radix-ui/react-tabs'
 
@@ -10,7 +12,6 @@ export function PartiesList({ parties, onClick }: PartiesListProps) {
   return (
     <Tabs.List
       className="p-6 md:p-0 flex flex-col md:flex-row bg-blue-900 items-center md:justify-center justify-start md:gap-6 border-t border-zinc-300 z-30"
-      aria-label="Lista de partidos"
     >
       {parties.map(({ title, abbr }) => {
         return (

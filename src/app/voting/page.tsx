@@ -1,7 +1,7 @@
 import { getRoles } from '@/functions'
 import { Parties } from './components/Parties'
 import { Urn } from './components/Urn'
-import { Role } from '@/types/role'
+import type { Role } from '@/types/role'
 
 export default async function Voting() {
   let roles: Role[] = []
@@ -9,16 +9,15 @@ export default async function Voting() {
   try {
     roles = await getRoles()
   } catch (error) {
-    console.error(error)
-    throw new Error('Error ao buscar cargos da API')
+    throw new Error('Error ao buscar dados da API')
   }
 
   return (
-    <div className="flex flex-col">
+    <main>
       <Parties roles={roles} />
       <div className=" flex items-center justify-center">
         <Urn roles={roles} />
       </div>
-    </div>
+    </main>
   )
 }

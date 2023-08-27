@@ -1,4 +1,5 @@
 'use client'
+
 import { useEffect, useState } from 'react'
 import { useUrn } from '@/hooks/useUrn'
 
@@ -249,7 +250,10 @@ export function Display({ roles }: DisplayProps) {
                     .map(({ url, caption }, index) => {
                       if (choosenCandidate.alternates)
                         return (
-                          <div key={url} className="flex items-center gap-2 md:mt-2">
+                          <div
+                            key={url}
+                            className="flex items-center gap-2 md:mt-2"
+                          >
                             <dt>{caption}: </dt>
                             <dl>{choosenCandidate.alternates[index]}</dl>
                           </div>
