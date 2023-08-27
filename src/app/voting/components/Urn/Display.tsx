@@ -6,12 +6,13 @@ import { Role } from '@/types/role'
 import { Candidate } from '@/types/candidate'
 
 import { Digit } from './Digit'
-import Image from 'next/image'
 
 import { Variants, motion } from 'framer-motion'
 import Link from 'next/link'
 
 import * as Progress from '@radix-ui/react-progress'
+import { twMerge } from 'tailwind-merge'
+import { CandidateImage } from './CandidateImage'
 
 const BAR_GROW_DURATION = 2000
 
@@ -85,9 +86,8 @@ export function Display({ roles }: DisplayProps) {
 
   useEffect(() => {
     setActiveDigit(pressedNumbers.length)
-    
-    if (pressedNumbers.length === digitsAmount) {
 
+    if (pressedNumbers.length === digitsAmount) {
       setCanPressKey(false)
       const activeCandidate = getChoosenCandidate()
 
@@ -130,7 +130,10 @@ export function Display({ roles }: DisplayProps) {
     return (
       <div className="bg-zinc-size border border-zinc-800 bg-zinc-100 flex flex-col justify-between">
         {isEnd ? (
-          <div className="flex h-full flex-col items-center justify-center">
+          <div
+            aria-live="polite"
+            className="flex h-full items-center justify-center"
+          >
             {isEndMessageVisible ? (
               <>
                 <motion.strong
@@ -150,7 +153,11 @@ export function Display({ roles }: DisplayProps) {
               </>
             ) : (
               <>
-                <strong id="loading-bar" className="uppercase text-4xl">
+                <strong
+                  aria-live="assertive"
+                  id="loading-bar"
+                  className="uppercase text-4xl"
+                >
                   Carregando...
                 </strong>
                 <Progress.Root
@@ -172,22 +179,28 @@ export function Display({ roles }: DisplayProps) {
           </div>
         ) : (
           <>
-            <div className="flex justify-between pt-3 px-6">
-              <div>
+            <div className="flex justify-between pt-3 px-6 sm:max-w-[640px] md:w-full mx-auto">
+              <div className="">
                 <span
+                  aria-live="polite"
                   className={
-                    choosenCandidate || isNullVote ? 'opacity-1' : 'opacity-0'
+                    choosenCandidate || isNullVote ? ' visible' : ' invisible'
                   }
                 >
-                  Seu voto para
+                  {choosenCandidate || isNullVote
+                    ? 'Seu voto para'
+                    : 'invisible'}
                 </span>
                 <strong className="uppercase text-xl block w-max pr-6 font-medium">
                   {activeRoleTitle}
                 </strong>
 
                 <div
+                  aria-label="Número de voto"
+                  aria-live="polite"
+                  aria-atomic="true"
                   className={`flex gap-2 mt-4 ${
-                    !isWhiteVote ? 'opacity-1' : 'opacity-0'
+                    !isWhiteVote ? ' visible' : ' invisible'
                   }`}
                 >
                   {Array.from({ length: digitsAmount ?? 0 }).map((_, index) => (
@@ -199,22 +212,23 @@ export function Display({ roles }: DisplayProps) {
                   ))}
                 </div>
 
-                <div
-                  className={isNullVote || isWhiteVote ? 'visible' : 'hidden'}
+                <motion.strong
+                  variants={blinkVariants}
+                  animate={'blink'}
                   aria-label="voto nulo"
+                  aria-live="polite"
+                  className={twMerge(
+                    'uppercase font-extrabold text-zinc-900 text-3xl block p-2 mt-4 tracking-wider',
+                    isNullVote || isWhiteVote ? 'visible' : 'invisible'
+                  )}
                 >
-                  <motion.strong
-                    variants={blinkVariants}
-                    animate={'blink'}
-                    className="uppercase font-extrabold text-zinc-900 text-3xl block p-2 mt-4 tracking-wider"
-                  >
-                    Voto Nulo
-                  </motion.strong>
-                </div>
+                  Voto Nulo
+                </motion.strong>
 
                 <dl
+                  aria-live="polite"
                   className={
-                    choosenCandidate ? 'opacity-1 mt-4 text-sm' : 'opacity-0'
+                    choosenCandidate ? ' visible mt-4 text-sm pb-3' : ' invisible'
                   }
                 >
                   <div className="flex items-center gap-2">
@@ -243,51 +257,32 @@ export function Display({ roles }: DisplayProps) {
               </div>
 
               <div
+                aria-live="polite"
                 className={
                   choosenCandidate
-                    ? 'opacity-1 flex flex-wrap gap-1 justify-end items-start w-[132px]'
-                    : 'opacity-0'
+                    ? ' visible flex flex-wrap gap-1 justify-end items-start max-w-[132px] '
+                    : ' invisible'
                 }
               >
-                {choosenCandidate?.images.map(({ url, caption }, index) => {
-                  const isFirst = index === 0
-                  const size = isFirst ? 84 : 64
-                  return (
-                    <div
-                      key={url}
-                      style={{ width: size }}
-                      className={`border border-zinc-800 flex flex-col items-center justify-center`}
-                    >
-                      {isFirst && (
-                        <Image
-                          src={url}
-                          width={size}
-                          height={size}
-                          className="block"
-                          alt={caption}
-                          priority={true}
-                        />
-                      )}
-                      {!isFirst && (
-                        <Image
-                          src={url}
-                          width={size}
-                          height={size}
-                          alt={caption}
-                        />
-                      )}
-                      <small className="p-[1px] text-center text-[10px] font-medium">
-                        {caption}
-                      </small>
-                    </div>
-                  )
-                })}
+                {choosenCandidate?.images && (
+                  <CandidateImage
+                    image={choosenCandidate?.images[0]}
+                    size={72}
+                  />
+                )}
+
+                <span className='hidden xs:flex gap-3'>
+                  {choosenCandidate?.images.slice(1).map((image) => {
+                    return <CandidateImage image={image} size={64} />
+                  })}
+                </span>
               </div>
             </div>
 
             <footer
+              aria-live="polite"
               className={`${
-                choosenCandidate || isNullVote ? 'opacity-1' : 'opacity-0'
+                choosenCandidate || isNullVote ? ' visible' : ' invisible'
               } mt-auto border-t border-zinc-600 px-6 py-2`}
             >
               <span>Aperte a tecla:</span>
