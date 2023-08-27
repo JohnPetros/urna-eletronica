@@ -1,4 +1,5 @@
 'use client'
+
 import { useUrn } from '@/hooks/useUrn'
 import { useRouter } from 'next/navigation'
 
@@ -40,14 +41,13 @@ export default function Results() {
     return null
   }
 
-  console.log(state.votedCandidates)
-
   return (
     <div className="bg-blue-900 h-screen flex flex-col items-center">
-      <h2 className="text-zinc-100 text-2xl mt-3">Seus votos, {user?.name}:</h2>
+      <h2 className="text-zinc-100 text-2xl mt-3 text-center">Seus votos, {user?.name}:</h2>
       <dl className="flex flex-col gap-8 mt-10">
         {state.votedCandidates.map((candidate, index) => (
           <Vote
+            key={`${candidate?.number}-${index}`}
             role={ROLES_TITLES[index]}
             candidate={candidate}
             index={index}
