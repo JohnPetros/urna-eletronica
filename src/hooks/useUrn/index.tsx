@@ -44,28 +44,7 @@ export const UrnContext = createContext({} as UrnContextValue)
 
 const initialUrnState: UrnState = {
   activeRoleTitle: 'DEPUTADO FEDERAL',
-  choosenCandidate:    {
-    "number": "911",
-    "name": "Natação",
-    "party": "PEsp",
-    "alternates": ["Esgrima", "Rúgbi"],
-    "images": [
-      {
-        "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/911_natacao.jpg",
-        "caption": "Senador"
-      },
-      {
-        "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/911_esgrima.jpg",
-        "caption": "1º Suplente",
-        "small": true
-      },
-      {
-        "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/911_rugbi.jpg",
-        "caption": "2° Suplente",
-        "small": true
-      }
-    ]
-  },
+  choosenCandidate:  null,
   pressedNumbers: [],
   canPressKey: true,
   isWhiteVote: false,
