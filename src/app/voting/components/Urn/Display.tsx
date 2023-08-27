@@ -180,7 +180,7 @@ export function Display({ roles }: DisplayProps) {
           </div>
         ) : (
           <>
-            <div className="flex justify-between pt-3 px-6 sm:max-w-[640px] md:w-full mx-auto">
+            <div className="flex justify-between pt-3 px-6 sm:max-w-[768px] md:w-full mx-auto">
               <div className="">
                 <span
                   aria-live="polite"
@@ -264,7 +264,7 @@ export function Display({ roles }: DisplayProps) {
                 className={twMerge(
                   '',
                   choosenCandidate
-                    ? ' visible flex flex-wrap gap-1 justify-end items-start max-w-[132px] bg-red-700'
+                    ? ' visible flex flex-wrap gap-1 justify-end items-start max-w-[132px]'
                     : 'invisible'
                 )}
               >
