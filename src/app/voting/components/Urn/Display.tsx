@@ -51,8 +51,6 @@ interface DisplayProps {
 }
 
 export function Display({ roles }: DisplayProps) {
-  if (!roles.length) return null
-
   const {
     state: {
       activeRoleTitle,
