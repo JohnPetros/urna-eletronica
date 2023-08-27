@@ -75,7 +75,7 @@ export function Vote({ role, candidate, index }: VoteProps) {
           {candidate.alternates && (
             <ul className="flex gap-2">
               {candidate.alternates.map((alternate, index) => (
-                <li>
+                <li key={alternate}>
                   <HoverCard.Root key={`${candidate.number}-${index}`} openDelay={200}>
                     <HoverCard.Trigger>
                       <Image
