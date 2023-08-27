@@ -54,7 +54,7 @@ const initialUrnState: UrnState = {
   isEnd: false,
 }
 
-export function urnReducer(state: UrnState, action: UrnAction): UrnState {
+export function UrnReducer(state: UrnState, action: UrnAction): UrnState {
   const { dispatch } = useModal()
 
   function openModal({ type, title, text }: OpenModalParams) {
@@ -186,7 +186,7 @@ export function urnReducer(state: UrnState, action: UrnAction): UrnState {
 }
 
 export function UrnProvider({ children }: RoleProviderProps) {
-  const [state, dispatch] = useReducer(urnReducer, initialUrnState)
+  const [state, dispatch] = useReducer(UrnReducer, initialUrnState)
 
   return (
     <UrnContext.Provider value={{ state, dispatch }}>
