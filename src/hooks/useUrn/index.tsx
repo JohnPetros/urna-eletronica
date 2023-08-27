@@ -44,7 +44,28 @@ export const UrnContext = createContext({} as UrnContextValue)
 
 const initialUrnState: UrnState = {
   activeRoleTitle: 'DEPUTADO FEDERAL',
-  choosenCandidate: null,
+  choosenCandidate:    {
+    "number": "911",
+    "name": "Natação",
+    "party": "PEsp",
+    "alternates": ["Esgrima", "Rúgbi"],
+    "images": [
+      {
+        "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/135x145/24bpp/911_natacao.jpg",
+        "caption": "Senador"
+      },
+      {
+        "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/911_esgrima.jpg",
+        "caption": "1º Suplente",
+        "small": true
+      },
+      {
+        "url": "https://www.tse.jus.br/hotsites/simulador-de-votacao/image/figuras/95x105/24bpp/911_rugbi.jpg",
+        "caption": "2° Suplente",
+        "small": true
+      }
+    ]
+  },
   pressedNumbers: [],
   canPressKey: true,
   isWhiteVote: false,
@@ -119,8 +140,10 @@ export function urnReducer(state: UrnState, action: UrnAction): UrnState {
     }
   }
 
-  function handleKeyPress(keyValue: string, keyRef: RefObject<HTMLButtonElement>) {
-
+  function handleKeyPress(
+    keyValue: string,
+    keyRef: RefObject<HTMLButtonElement>
+  ) {
     const isNumber = !!Number(keyValue)
 
     if (isNumber || keyValue === '0') {
@@ -153,6 +176,8 @@ export function urnReducer(state: UrnState, action: UrnAction): UrnState {
             title: 'Para votar, o campo de voto deve estar completo.',
             text: 'Insira o dígitos pressionando as teclas numéricas.',
           })
+
+          setModalCallback(keyRef)
           return
         }
 
