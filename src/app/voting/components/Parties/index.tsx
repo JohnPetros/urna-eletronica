@@ -57,6 +57,11 @@ export function Parties({ roles }: PartiesProps) {
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
 
+  function closeTabsList() {
+    setActiveParty(null)
+    setIisPartiesListVisible(false)
+  }
+
   function closeParty() {
     setActiveParty(null)
 
@@ -101,10 +106,17 @@ export function Parties({ roles }: PartiesProps) {
   }, [])
 
   return (
-    <Tabs.Root className="bg-blue-900 px-6 text-zinc-200 h-[264px] md:overflow-hidden">
+    <Tabs.Root
+      className="bg-blue-900 px-6 text-zinc-200 md:h-[180px] h-auto w-full md:overflow-hidden fixed md:static top-0 z-30 overflow-y-auto"
+      orientation={isMobile ? 'vertical' : 'horizontal'}
+    >
       {activeParty && (
-        <Tabs.Content value={`tab-${activeParty.abbr}`}>
-          <Party data={activeParty} onClose={closeParty} />
+        <Tabs.Content value={`tab-${activeParty.abbr}`} className='md:w-full md:h-full'>
+          <Party
+            data={activeParty}
+            onPartyClose={closeParty}
+            onTabListClose={closeTabsList}
+          />
         </Tabs.Content>
       )}
 
@@ -120,13 +132,13 @@ export function Parties({ roles }: PartiesProps) {
               <button
                 onClick={handleArrowButtonClick}
                 className={twMerge(
-                  'md:hidden grid place-content-center border border-gray-100 p-1 rounded-md text-2xl text-gray-100 transition-all',
+                  'md:hidden grid place-content-center border border-gray-100 p-1 rounded-md text-gray-100 transition-all',
                   isPartiesListVisible ? 'rotate-90' : 'rotate-0'
                 )}
               >
                 ↓
               </button>
-              <p className="text-center text-lg py-6">
+              <p className="text-center md:text-lg text-sm py-6">
                 Para visualizar os canditados, selecione um partido, clicando na
                 seta ao lado
               </p>
@@ -143,9 +155,14 @@ export function Parties({ roles }: PartiesProps) {
                   initial="hidden"
                   animate={isPartiesListVisible ? 'visible' : ''}
                   exit="hidden"
-                  className="md:hidden bg-blue-900 fixed left-0 h-full z-30"
+                  className="md:hidde fixed left-0 h-full grid grid-cols-2 z-30"
                 >
                   <PartiesList parties={PARTIES} onClick={handlePartyClick} />
+                  <div
+                    data-testid="parties-list-overlay"
+                    className="bg-trasparent"
+                    onClick={closeTabsList}
+                  ></div>
                 </motion.div>
               )}
             </AnimatePresence>
