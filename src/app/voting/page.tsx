@@ -13,9 +13,9 @@ export default async function Voting() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100%-80px)]">
+    <div className="flex flex-col">
       <Parties roles={roles} />
-      <div className="h-full flex items-center justify-center">
+      <div className=" flex items-center justify-center">
         <Urn roles={roles} />
       </div>
     </div>
