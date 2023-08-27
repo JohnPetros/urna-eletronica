@@ -1,7 +1,8 @@
-import { Role } from "@/types/role"
+
+import { Role } from '@/types/role'
 
 export async function getRoles(): Promise<Role[]> {
-  const response = await fetch('http://localhost:3001/roles')
+  const response = await fetch('https://roles-api.vercel.app/roles')
   const roles = response.json()
   return roles
 }
