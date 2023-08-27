@@ -9,6 +9,7 @@ export default async function Voting() {
   try {
     roles = await getRoles()
   } catch (error) {
+    console.error(error)
     throw new Error('Error ao buscar cargos da API')
   }
 
