@@ -23,21 +23,21 @@ export function Keyboard() {
         ))}
           <Key className="bg-zinc-800 col-start-2 col-end-3" value="0" />
 
-        <div className="col-span-3 flex items-center justify-center gap-2 mt-3">
+        <div className="col-span-3 grid grid-cols-3  gap-2 mt-3">
           <Key
-            className="bg-zinc-100 text-zinc-800 w-[30%] md:w-auto md:px-2 py-2 text-sm"
+            className="bg-zinc-100 text-zinc-800 md:w-auto md:px-2 py-2 text-[13px]"
             value="Branco"
             isAction={true}
             ariaLabel="Votar em branco"
           />
           <Key
-            className="bg-orange-600 text-zinc-950 w-[30%] md:w-auto md:px-2 py-2 text-sm"
+            className="bg-orange-600 text-zinc-950 md:w-auto md:px-2 py-2 text-[13px]"
             value="Corrige"
             isAction={true}
             ariaLabel="Corrigir número"
           />
           <Key
-            className="bg-green-600 text-zinc-950 w-[30%] md:w-auto md:px-2 py-3 text-sm"
+            className="bg-green-600 text-zinc-950 md:w-auto md:px-2 py-3 text-[13px]"
             value="Confirma"
             ariaLabel="Confirmar voto"
             isAction={true}
