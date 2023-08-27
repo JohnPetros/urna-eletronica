@@ -16,7 +16,7 @@ import { CandidateImage } from './CandidateImage'
 
 const BAR_GROW_DURATION = 2000
 
-export const blinkVariants: Variants = {
+export const blinkAnimation: Variants = {
   default: {
     opacity: 1,
   },
@@ -27,7 +27,7 @@ export const blinkVariants: Variants = {
       repeat: Infinity,
       repeatType: 'mirror',
       duration: 0.8,
-      zIndex: -1
+      zIndex: -1,
     },
   },
 }
@@ -129,7 +129,7 @@ export function Display({ roles }: DisplayProps) {
 
   if (activeRole)
     return (
-      <div className="bg-zinc-size border border-zinc-800 bg-zinc-100 flex flex-col justify-between h-80 md:h-auto">
+      <div className="bg-zinc-size border border-zinc-800 bg-zinc-100 flex flex-col justify-between h-[300px] md:h-auto">
         {isEnd ? (
           <div
             aria-live="polite"
@@ -138,7 +138,7 @@ export function Display({ roles }: DisplayProps) {
             {isEndMessageVisible ? (
               <>
                 <motion.strong
-                  variants={blinkVariants}
+                  variants={blinkAnimation}
                   animate="blink"
                   className="uppercase text-5xl"
                 >
@@ -180,7 +180,7 @@ export function Display({ roles }: DisplayProps) {
           </div>
         ) : (
           <>
-            <div className="flex justify-between pt-3 px-6 sm:max-w-[768px] md:w-full mx-auto">
+            <div className="flex justify-between pt-3 px-6  md:w-full ">
               <div className="">
                 <span
                   aria-live="polite"
@@ -197,6 +197,7 @@ export function Display({ roles }: DisplayProps) {
                 </strong>
 
                 <div
+                  id="vonting-number"
                   aria-label="Número de voto"
                   aria-live="polite"
                   aria-atomic="true"
@@ -214,7 +215,7 @@ export function Display({ roles }: DisplayProps) {
                 </div>
 
                 <motion.strong
-                  variants={blinkVariants}
+                  variants={blinkAnimation}
                   animate={'blink'}
                   aria-label="voto nulo"
                   aria-live="polite"
@@ -234,23 +235,21 @@ export function Display({ roles }: DisplayProps) {
                       : ' invisible'
                   }
                 >
-                  <div className="flex items-center gap-2 text-lg">
+                  <div className="flex items-center gap-1 text-lg">
                     <dt>Nome: </dt>
                     <dl className="texte-center">{choosenCandidate?.name}</dl>
                   </div>
-                  <div className="flex items-center gap-x-2 mt-2 text-lg">
+                  <div className="flex items-center gap-x-2 text-lg md:mt-2">
                     <dt>Partido: </dt>
                     <dl>{choosenCandidate?.party}</dl>
                   </div>
+
                   {choosenCandidate?.images
                     .slice(1)
                     .map(({ url, caption }, index) => {
                       if (choosenCandidate.alternates)
                         return (
-                          <div
-                            key={url}
-                            className="flex items-center gap-2 mt-2"
-                          >
+                          <div key={url} className="flex items-center gap-2 md:mt-2">
                             <dt>{caption}: </dt>
                             <dl>{choosenCandidate.alternates[index]}</dl>
                           </div>
@@ -289,7 +288,7 @@ export function Display({ roles }: DisplayProps) {
               aria-live="polite"
               className={twMerge(
                 choosenCandidate || isNullVote ? ' visible' : ' invisible',
-                ' mt-auto border-t border-zinc-600 h-16 flex flex-col justify-center px-3 text-xs'
+                ' mt-auto border-t border-zinc-600 flex flex-col justify-center px-6 md:py-2 text-xs'
               )}
             >
               <span>Aperte a tecla:</span>

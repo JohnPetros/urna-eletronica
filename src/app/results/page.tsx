@@ -8,7 +8,7 @@ import { ROLES_TITLES } from '@/constants/roles-titles'
 import { Vote } from './components/Vote'
 
 import { Variants, motion } from 'framer-motion'
-import { blinkVariants } from '../voting/components/Urn/Display'
+import { blinkAnimation } from '../voting/components/Urn/Display'
 import { useUser } from '@/hooks/useUser'
 
 const linkVariants: Variants = {
@@ -56,7 +56,7 @@ export default function Results() {
       </dl>
 
       <motion.button
-        variants={blinkVariants}
+        variants={blinkAnimation}
         animate={'blink'}
         className="mt-8 text-zinc-100 bg-transparent uppercase font-semibold text-3xl tracking-wide"
         onClick={handleExitClick}
