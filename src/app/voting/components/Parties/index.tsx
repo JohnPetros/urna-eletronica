@@ -56,7 +56,7 @@ export function Parties({ roles }: PartiesProps) {
   const [activeParty, setActiveParty] = useState<PartyData | null>(null)
   const [isPartiesListVisible, setIisPartiesListVisible] = useState(false)
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+  const [isMobile, setIsMobile] = useState(window ? window.innerWidth <= 768 : false)
 
   function closeTabsList() {
     setActiveParty(null)
