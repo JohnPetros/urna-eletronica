@@ -27,6 +27,7 @@ export const blinkVariants: Variants = {
       repeat: Infinity,
       repeatType: 'mirror',
       duration: 0.8,
+      zIndex: -1
     },
   },
 }
@@ -128,11 +129,11 @@ export function Display({ roles }: DisplayProps) {
 
   if (activeRole)
     return (
-      <div className="bg-zinc-size border border-zinc-800 bg-zinc-100 flex flex-col justify-between">
+      <div className="bg-zinc-size border border-zinc-800 bg-zinc-100 flex flex-col justify-between h-80 md:h-auto">
         {isEnd ? (
           <div
             aria-live="polite"
-            className="flex h-full items-center justify-center"
+            className="flex flex-col h-full items-center justify-center"
           >
             {isEndMessageVisible ? (
               <>
@@ -218,7 +219,7 @@ export function Display({ roles }: DisplayProps) {
                   aria-label="voto nulo"
                   aria-live="polite"
                   className={twMerge(
-                    'uppercase font-extrabold text-zinc-900 text-3xl block p-2 mt-4 tracking-wider',
+                    'uppercase font-extrabold text-zinc-900 text-2xl block mt-3 tracking-wider',
                     isNullVote || isWhiteVote ? 'visible' : 'invisible'
                   )}
                 >
@@ -228,14 +229,16 @@ export function Display({ roles }: DisplayProps) {
                 <dl
                   aria-live="polite"
                   className={
-                    choosenCandidate ? ' visible mt-4 text-sm pb-3' : ' invisible'
+                    choosenCandidate
+                      ? ' visible mt-4 text-sm pb-1'
+                      : ' invisible'
                   }
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 text-lg">
                     <dt>Nome: </dt>
                     <dl className="texte-center">{choosenCandidate?.name}</dl>
                   </div>
-                  <div className="flex items-center gap-x-2 mt-2">
+                  <div className="flex items-center gap-x-2 mt-2 text-lg">
                     <dt>Partido: </dt>
                     <dl>{choosenCandidate?.party}</dl>
                   </div>
@@ -258,22 +261,25 @@ export function Display({ roles }: DisplayProps) {
 
               <div
                 aria-live="polite"
-                className={
+                className={twMerge(
+                  '',
                   choosenCandidate
-                    ? ' visible flex flex-wrap gap-1 justify-end items-start max-w-[132px] '
-                    : ' invisible'
-                }
+                    ? ' visible flex flex-wrap gap-1 justify-end items-start max-w-[132px] bg-red-700'
+                    : 'invisible'
+                )}
               >
                 {choosenCandidate?.images && (
                   <CandidateImage
                     image={choosenCandidate?.images[0]}
-                    size={72}
+                    size={84}
                   />
                 )}
 
-                <span className='hidden xs:flex gap-3'>
+                <span className="hidden xs:flex gap-3">
                   {choosenCandidate?.images.slice(1).map((image) => {
-                    return <CandidateImage image={image} size={64} />
+                    return (
+                      <CandidateImage key={image.url} image={image} size={64} />
+                    )
                   })}
                 </span>
               </div>
@@ -281,9 +287,10 @@ export function Display({ roles }: DisplayProps) {
 
             <footer
               aria-live="polite"
-              className={`${
-                choosenCandidate || isNullVote ? ' visible' : ' invisible'
-              } mt-auto border-t border-zinc-600 px-6 py-2`}
+              className={twMerge(
+                choosenCandidate || isNullVote ? ' visible' : ' invisible',
+                ' mt-auto border-t border-zinc-600 h-16 flex flex-col justify-center px-3 text-xs'
+              )}
             >
               <span>Aperte a tecla:</span>
               <p>CONFIRMA para CONFIRMAR este voto</p>
