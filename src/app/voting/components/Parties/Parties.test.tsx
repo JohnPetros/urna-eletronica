@@ -120,4 +120,19 @@ describe('Party component', () => {
       expect(screen.queryByText('9101')).not.toBeInTheDocument()
     })
   })
+
+  it('should not display candidates when party tab overlay is clicked', async () => {
+    renderParties()
+
+    const tabTrigger = screen.getByTestId('tab-PEsp')
+    await userEvent.click(tabTrigger)
+
+    const partyTabOverlay = screen.getByTestId('party-tab-overlay')
+    await userEvent.click(partyTabOverlay)
+
+    await waitFor(() => {
+      expect(screen.queryByText('Atletismo')).not.toBeInTheDocument()
+      expect(screen.queryByText('9101')).not.toBeInTheDocument()
+    })
+  })
 })
