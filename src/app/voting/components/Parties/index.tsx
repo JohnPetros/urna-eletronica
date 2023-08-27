@@ -8,9 +8,43 @@ import * as Tabs from '@radix-ui/react-tabs'
 
 import { AnimatePresence, Variants, motion } from 'framer-motion'
 
-
 import type { Role } from '@/types/role'
 import type { Party as PartyData } from '@/types/party'
+import { PartiesList } from './PartiesList'
+import { twMerge } from 'tailwind-merge'
+
+const partiesListAnimations: Variants = {
+  hidden: {
+    x: -320,
+  },
+  visible: {
+    x: 0,
+    transition: {
+      type: 'tween',
+      ease: 'linear',
+    },
+  },
+}
+
+const partiesAnimations: Variants = {
+  initial: {
+    opacity: 0,
+    y: -350,
+  },
+  entry: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      damping: 15,
+      stiffness: 60,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: 350,
+  },
+}
 
 interface PartiesProps {
   roles: Role[]
@@ -19,29 +53,16 @@ interface PartiesProps {
 export function Parties({ roles }: PartiesProps) {
   const { state } = useUrn()
   const [activeParty, setActiveParty] = useState<PartyData | null>(null)
+  const [isPartiesListVisible, setIisPartiesListVisible] = useState(false)
 
-  const partiesVariants: Variants = {
-    initial: {
-      opacity: 0,
-      y: -350,
-    },
-    entry: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: 'spring',
-        damping: 15,
-        stiffness: 60,
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: 350,
-    },
-  }
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
 
   function closeParty() {
     setActiveParty(null)
+
+    if (isMobile) {
+      setIisPartiesListVisible(true)
+    }
   }
 
   function handlePartyClick(abbr: string) {
@@ -59,52 +80,75 @@ export function Parties({ roles }: PartiesProps) {
     }
 
     setActiveParty(activeParty)
+    setIisPartiesListVisible(false)
+  }
+
+  function handleArrowButtonClick() {
+    setIisPartiesListVisible(!isPartiesListVisible)
+  }
+
+  const handleWindowSizeChange = () => {
+    setIsMobile(window.innerWidth <= 768)
   }
 
   useEffect(() => {
     setActiveParty(null)
   }, [state.activeRoleTitle])
 
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange)
+    return () => window.removeEventListener('resize', handleWindowSizeChange)
+  }, [])
+
   return (
-    <Tabs.Root className="bg-blue-900 px-6 text-zinc-200 h-[264px]">
-      {activeParty ? (
+    <Tabs.Root className="bg-blue-900 px-6 text-zinc-200 h-[264px] md:overflow-hidden">
+      {activeParty && (
         <Tabs.Content value={`tab-${activeParty.abbr}`}>
           <Party data={activeParty} onClose={closeParty} />
         </Tabs.Content>
-      ) : (
+      )}
+
+      {(!activeParty || isMobile) && (
         <AnimatePresence>
           <motion.div
-            variants={partiesVariants}
+            variants={partiesAnimations}
             initial="initial"
             animate="entry"
             exit="exit"
           >
-            <p className="text-center text-lg py-6">
-              Para visualizar os canditados, selecione um partido
-            </p>
-            <Tabs.List
-              className="flex items-center justify-center gap-6 border-t border-zinc-300"
-              role="tab-list"
-              aria-label="Lista de partidos"
-            >
-              {PARTIES.map(({ title, abbr }) => {
-                return (
-                  <Tabs.Trigger
-                    key={abbr}
-                    value={`tab-${abbr}`}
-                    role="tab"
-                    data-testid={`tab-${abbr}`}
-                    id={`tab-${abbr}`}
-                    className=" flex flex-col gap-1 items-center py-7 px-2 font-medium hover:text-white transition-colors duration-200 cursor-pointer"
-                    aria-controls={`tab-partido-${abbr}`}
-                    onClick={() => handlePartyClick(abbr)}
-                  >
-                    <strong>{abbr}</strong>
-                    <small className="uppercase">{title}</small>
-                  </Tabs.Trigger>
-                )
-              })}
-            </Tabs.List>
+            <div className="flex items-center justify-center gap-6">
+              <button
+                onClick={handleArrowButtonClick}
+                className={twMerge(
+                  'md:hidden grid place-content-center border border-gray-100 p-1 rounded-md text-2xl text-gray-100 transition-all',
+                  isPartiesListVisible ? 'rotate-90' : 'rotate-0'
+                )}
+              >
+                ↓
+              </button>
+              <p className="text-center text-lg py-6">
+                Para visualizar os canditados, selecione um partido, clicando na
+                seta ao lado
+              </p>
+            </div>
+
+            <div className="hidden md:block">
+              <PartiesList parties={PARTIES} onClick={handlePartyClick} />
+            </div>
+
+            <AnimatePresence>
+              {isPartiesListVisible && (
+                <motion.div
+                  variants={partiesListAnimations}
+                  initial="hidden"
+                  animate={isPartiesListVisible ? 'visible' : ''}
+                  exit="hidden"
+                  className="md:hidden bg-blue-900 fixed left-0 h-full z-30"
+                >
+                  <PartiesList parties={PARTIES} onClick={handlePartyClick} />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </AnimatePresence>
       )}
