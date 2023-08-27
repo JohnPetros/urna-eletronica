@@ -17,9 +17,9 @@ export function Keyboard() {
           Justiça eleitoral
         </h2>
       </header>
-      <div className="grid grid-cols-[repeat(3,minmax(80px,140px))] w-full items-center justify-center gap-2 bg-zinc-600 p-6">
+      <div className="grid grid-cols-[repeat(3,minmax(40px,140px))] w-full items-center justify-center gap-2 bg-zinc-600 p-6">
         {keys.map((key) => (
-          <Key className="bg-zinc-800 w-full" value={String(key)} />
+          <Key key={key} className="bg-zinc-800 w-full" value={String(key)} />
         ))}
           <Key className="bg-zinc-800 col-start-2 col-end-3" value="0" />
 
