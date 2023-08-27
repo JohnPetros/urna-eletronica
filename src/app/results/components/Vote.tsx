@@ -61,7 +61,7 @@ export function Vote({ role, candidate, index }: VoteProps) {
           <dl>
             <div className="flex items-center gap-3 w-48">
               <dt>Nome:</dt>
-              <dl className='truncate'>{candidate.name}</dl>
+              <dl className="truncate">{candidate.name}</dl>
             </div>
             <div className="flex items-center gap-2 w-48">
               <dt>Partido:</dt>
@@ -76,7 +76,7 @@ export function Vote({ role, candidate, index }: VoteProps) {
             <ul className="flex gap-2">
               {candidate.alternates.map((alternate, index) => (
                 <li>
-                  <HoverCard.Root openDelay={200}>
+                  <HoverCard.Root key={`${candidate.number}-${index}`} openDelay={200}>
                     <HoverCard.Trigger>
                       <Image
                         src={candidate.images[index + 1].url}
