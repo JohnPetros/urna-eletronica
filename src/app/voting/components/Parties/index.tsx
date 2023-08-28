@@ -104,6 +104,7 @@ export function Parties({ roles }: PartiesProps) {
   }, [state.activeRoleTitle])
 
   useEffect(() => {
+    handleWindowSizeChange()
     window.addEventListener('resize', handleWindowSizeChange)
     return () => window.removeEventListener('resize', handleWindowSizeChange)
   }, [])
