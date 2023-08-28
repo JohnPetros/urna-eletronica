@@ -22,5 +22,5 @@ export function PrivateRoute({ children }: PrivateRouteProps) {
     registerUser(storagedUser)
   }, [])
 
-  return <>{children}</>
+  if (storagedUser) return children
 }
