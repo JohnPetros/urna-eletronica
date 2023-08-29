@@ -34,7 +34,7 @@ Este projeto foi inspirado no [simulador de urna eletrônica oficial](https://ww
   <tr>
     <td align="center" width="700">
     <span>Página da Urna funcionando<br/></span>
-    <img alt="Home page" src=".github/home.png" />
+    <img alt="Home page" src=".github/urna-eletronica-funcionando.gif" alt="Demonstração da urna funcionando" />
     </td>
   </tr>
 </table>
@@ -74,6 +74,7 @@ Este projeto foi inspirado no [simulador de urna eletrônica oficial](https://ww
 - Avisar o leitor de tela que o conteúdo de um elemento foi atualizado usando o atributo `aria-live`
 - Usar a propriedade `visibility` ou o atributo `hidden` para omitir elementos do leitor de tela 
 - Definir o `role` como `alert` de elementos que servem como messagens de erro
+- Definir atributo `alt` em todas as imagens 
 - Layout responsivo
 
 
