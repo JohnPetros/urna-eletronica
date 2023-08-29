@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useReducer,
-} from 'react'
+import { createContext, ReactNode, useContext, useReducer } from 'react'
 import { Modal, ModalType } from '@/app/components/Modal'
 
 export type OpenModalParams = {
@@ -87,6 +82,10 @@ export function ModalProvider({ children }: ModalProviderProps) {
         title={state.title}
         text={state.text}
         onClick={state.callback}
+        onClose={() => {
+          state.callback()
+          dispatch({ type: 'close' })
+        }}
       />
       {children}
     </ModalContext.Provider>

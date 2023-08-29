@@ -1,5 +1,4 @@
 'use client'
-import { forwardRef, useImperativeHandle, useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import Lottie from 'lottie-react'
 
@@ -8,8 +7,6 @@ import Error from '../../../../public/animations/error.json'
 import Success from '../../../../public/animations/success.json'
 
 import { AnimatePresence, Variants, motion } from 'framer-motion'
-import { useUser } from '@/hooks/useUser'
-import { useRouter } from 'next/navigation'
 
 const variants: Variants = {
   hidden: {
@@ -54,12 +51,19 @@ export interface ModalProps {
   title: string
   text: string
   onClick: VoidFunction
+  onClose: VoidFunction
 }
 
-export function Modal({ isOpen, title, text, type, onClick }: ModalProps) {
-
+export function Modal({
+  isOpen,
+  title,
+  text,
+  type,
+  onClick,
+  onClose,
+}: ModalProps) {
   return (
-    <Dialog.Root open={isOpen}>
+    <Dialog.Root open={isOpen} onOpenChange={onClose}>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black/70 fixed inset-0" />
         <Dialog.Content
