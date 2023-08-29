@@ -20,16 +20,16 @@
 <br>
 
 <p align="center">
- <a href="##-🖥️-sobre-o-projeto">Sobre o Projeto</a> |
- <a href="##-⏹️-demonstração">Demonstração</a> | 
- <a href="##-✨-funcionalidades">Funcionalidades</a> | 
- <a href="##-♿-práticas-de-acessibilidade-aplicadas">Práticas de acessibilidade aplicadas</a> | 
- <a href="##-⚙️-deploy">Deploy</a> | 
- <a href="##-🛠️-tecnologias">Tecnologias</a> | 
- <a href="##-🚀-como-rodar-a-aplicação">Como  rodar a aplicação?</a> | 
- <a href="##-💪-como-contribuir">Como contribuir</a> | 
- <a href="##-🎨-layout">Layout</a> | 
- <a href="##-📝-license">Licença</a>
+ <a href="##-sobre-o-projeto">Sobre o Projeto</a> |
+ <a href="##--demonstração">Demonstração</a> | 
+ <a href="##-funcionalidades">Funcionalidades</a> | 
+ <a href="##-práticas-de-acessibilidade-aplicadas">Práticas de acessibilidade aplicadas</a> | 
+ <a href="##-deploy">Deploy</a> | 
+ <a href="##-tecnologias">Tecnologias</a> | 
+ <a href="##-como-rodar-a-aplicação">Como  rodar a aplicação?</a> | 
+ <a href="##-como-contribuir">Como contribuir</a> | 
+ <a href="##-layout">Layout</a> | 
+ <a href="##-license">Licença</a>
 </p>
 
 ## 🖥️ Sobre o Projeto
