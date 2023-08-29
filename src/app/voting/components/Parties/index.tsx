@@ -95,13 +95,25 @@ export function Parties({ roles }: PartiesProps) {
     setIisPartiesListVisible(!isPartiesListVisible)
   }
 
-  const handleWindowSizeChange = () => {
+  function handleKeydown({ key }: KeyboardEvent) {
+    if (key === 'esc') {
+      closeTabsList()
+    }
+  }
+
+  function handleWindowSizeChange() {
     setIsMobile(window.innerWidth <= 768)
   }
 
   useEffect(() => {
     setActiveParty(null)
   }, [state.activeRoleTitle])
+
+  useEffect(() => {
+    handleWindowSizeChange()
+    window.addEventListener('keydown', handleKeydown)
+    return () => window.removeEventListener('keydown', handleKeydown)
+  }, [handleKeydown])
 
   useEffect(() => {
     handleWindowSizeChange()
@@ -138,6 +150,12 @@ export function Parties({ roles }: PartiesProps) {
             <div className="flex items-center justify-center gap-6">
               <button
                 onClick={handleArrowButtonClick}
+                aria-label={
+                  isPartiesListVisible
+                    ? 'Exibir lista de partidos'
+                    : 'Fechar lista de partidos'
+                }
+                aria-expanded={isPartiesListVisible ? 'true' : 'false'}
                 className={twMerge(
                   'md:hidden grid place-content-center border border-gray-100 p-1 rounded-md text-gray-100 transition-all',
                   isPartiesListVisible ? 'rotate-90' : 'rotate-0'
