@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { Variants, motion } from 'framer-motion'
 
 import type { Image as CandidateImage } from '@/types/Image'
-import { Loading } from './Loading'
+import { Loading } from '../Loading'
 
 const candidateVariants: Variants = {
   initial: {
