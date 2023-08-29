@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex h-[calc(100%-80px)] items-center justify-center">
+      <main className="flex h-[calc(100%-5rem)] items-center justify-center">
         <Form />
       </main>
     </>
