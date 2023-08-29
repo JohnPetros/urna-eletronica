@@ -62,7 +62,7 @@ export function Candidate({
             >
               {isFirst && (
                 <div className="flex flex-col items-center ">
-                  <div className="w-20 h-24">
+                  <div className="w-20 h-28 md:h-24">
                     <Image
                       src={url}
                       width={72}
