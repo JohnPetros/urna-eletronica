@@ -96,7 +96,7 @@ export function Parties({ roles }: PartiesProps) {
   }
 
   function handleKeydown({ key }: KeyboardEvent) {
-    if (key === 'esc') {
+    if (key === 'Escape') {
       closeTabsList()
     }
   }
