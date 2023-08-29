@@ -1,10 +1,32 @@
 'use client'
+import { useState } from 'react'
 
 import Image from 'next/image'
 
 import { Variants, motion } from 'framer-motion'
 
 import type { Image as CandidateImage } from '@/types/Image'
+import { Loading } from './Loading'
+
+const candidateVariants: Variants = {
+  initial: {
+    opacity: 0,
+    y: 24,
+  },
+  entry: {
+    opacity: 1,
+    y: 0,
+  },
+}
+
+const imageVarians: Variants = {
+  hover: {
+    rotate: ['0deg', '15deg', '0deg', '-15deg', '0deg'],
+    transition: {
+      duration: 0.5,
+    },
+  },
+}
 
 interface CandidateProps {
   name: string
@@ -19,25 +41,7 @@ export function Candidate({
   number,
   alternates,
 }: CandidateProps) {
-  const candidateVariants: Variants = {
-    initial: {
-      opacity: 0,
-      y: 24,
-    },
-    entry: {
-      opacity: 1,
-      y: 0,
-    },
-  }
-
-  const imageVarians: Variants = {
-    hover: {
-      rotate: ['0deg', '15deg', '0deg', '-15deg', '0deg'],
-      transition: {
-        duration: 0.5,
-      },
-    },
-  }
+  const [isLoaded, setIsloaded] = useState(false)
 
   return (
     <motion.div
@@ -58,7 +62,20 @@ export function Candidate({
             >
               {isFirst && (
                 <div className="flex flex-col items-center">
-                  <Image src={url} width={72} height={64} alt={caption} />
+                  {isLoaded ? (
+                    <Image
+                      src={url}
+                      width={72}
+                      height={64}
+                      alt={caption}
+                      onLoadingComplete={() => setIsloaded(true)}
+                    />
+                  ) : (
+                    <div className="w-20 h-20 grid place-content-center">
+                      <Loading />
+                    </div>
+                  )}
+
                   <div className="flex flex-col text-center gap-1 mt-1">
                     <small className="text-sm">{name}</small>
                     <strong className="text-zinc-100">{number}</strong>
