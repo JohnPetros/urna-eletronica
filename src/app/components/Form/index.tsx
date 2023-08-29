@@ -28,7 +28,7 @@ const formSchema = z.object({
 export type FormFields = z.infer<typeof formSchema>
 
 export function Form() {
-  const { registerUser } = useUser()
+  const { registerUser, hasUser } = useUser()
   const { state, dispatch } = useModal()
   const {
     register,
@@ -42,7 +42,6 @@ export function Form() {
   const router = useRouter()
 
   const buttonRef = useRef<HTMLButtonElement>(null)
-
 
   function setModalCallback(callback: VoidFunction) {
     dispatch({ type: 'setCallback', payload: callback })
@@ -105,8 +104,15 @@ export function Form() {
   useEffect(() => {
     const formValues = getValues(['name', 'birthdate'])
 
-    if (!state.isOpen && formValues.every((value) => !!value)) {
+    if (
+      buttonRef.current &&
+      !state.isOpen &&
+      formValues.every((value) => !!value)
+    ) {
       buttonRef.current?.focus()
+      buttonRef.current.disabled = false
+    } else if (buttonRef.current && hasUser) {
+      buttonRef.current.disabled = true
     }
   }, [state.isOpen])
 
