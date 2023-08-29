@@ -61,21 +61,23 @@ export function Candidate({
               className="text-sm w-36 "
             >
               {isFirst && (
-                <div className="flex flex-col items-center">
-                    <Image
-                      src={url}
-                      width={72}
-                      height={64}
-                      alt={caption}
-                      onLoad={(img) => {
-                        console.log(img)
+                <div className="flex flex-col items-center relative">
+                  <Image
+                    src={url}
+                    width={72}
+                    height={64}
+                    alt={caption}
+                    onLoad={(img) => {
+                      console.log(img)
 
-                        setIsloaded(true)
-                      }}
-                    />
-                  {!isLoaded   && <div className="w-20 h-20 grid place-content-center">
+                      setIsloaded(true)
+                    }}
+                  />
+                  {!isLoaded && (
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 grid place-content-center">
                       <Loading />
-                    </div>}
+                    </div>
+                  )}
 
                   <div className="flex flex-col text-center gap-1 mt-1">
                     <small className="text-sm">{name}</small>
