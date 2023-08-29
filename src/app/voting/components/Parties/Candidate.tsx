@@ -62,19 +62,20 @@ export function Candidate({
             >
               {isFirst && (
                 <div className="flex flex-col items-center">
-                  {isLoaded ? (
                     <Image
                       src={url}
                       width={72}
                       height={64}
                       alt={caption}
-                      onLoadingComplete={() => setIsloaded(true)}
+                      onLoad={(img) => {
+                        console.log(img)
+
+                        setIsloaded(true)
+                      }}
                     />
-                  ) : (
-                    <div className="w-20 h-20 grid place-content-center">
+                  {!isLoaded   && <div className="w-20 h-20 grid place-content-center">
                       <Loading />
-                    </div>
-                  )}
+                    </div>}
 
                   <div className="flex flex-col text-center gap-1 mt-1">
                     <small className="text-sm">{name}</small>
